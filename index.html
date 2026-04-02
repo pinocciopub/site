@@ -5,23 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinoccio Pub</title>
     <style>
+        /* General layout settings */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            font-family: sans-serif;
-            /* Updated background color */
-            background-color: #AEADAE;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #AEADAE; /* Your custom gray */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; /* Centers box horizontally */
+            align-items: center;     /* Centers box vertically */
         }
+
+        /* Top-left logo with padding */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 150px; /* Adjust this number to change logo size */
+            height: auto;
+        }
+
+        /* Centered white content box */
+        .content-box {
+            background-color: #FFFFFF;
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%; /* Makes it responsive for mobile */
+            text-align: center;
+        }
+
         h1 {
-            font-size: 4rem;
-            color: #333;
+            color: #333333;
+            margin: 0;
+            font-weight: 300;
         }
     </style>
 </head>
 <body>
-    <h1>hi</h1>
+
+    <img src="pinoccio-logo.png" alt="Pinoccio Logo" class="logo">
+
+    <div class="content-box">
+        <h1>Coming Soon</h1>
+    </div>
+
 </body>
 </html>
