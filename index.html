@@ -5,34 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinoccio Pub</title>
     <style>
-        /* General layout settings */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #AEADAE; /* Your custom gray */
+            background-color: #AEADAE;
             min-height: 100vh;
-            display: flex;
-            justify-content: center; /* Centers box horizontally */
-            align-items: center;     /* Centers box vertically */
         }
 
-        /* Top-left logo with padding */
         .logo {
             position: absolute;
             top: 30px;
             left: 30px;
-            width: 800px; /* Adjust this number to change logo size */
+            width: 450px;
             height: auto;
         }
 
-        /* Centered white content box */
+        /* The white content box */
         .content-box {
             background-color: #FFFFFF;
-            padding: 60px;
-            border-radius: 0px;
-            max-width: 500px;
-            width: 90%; /* Makes it responsive for mobile */
+            padding: 40px;
+            margin-top: 200px; /* Moves the box higher up */
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 800px;
+            width: 90%;
+            min-height: calc(100vh - 200px); /* Extends box to the end of the page */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1); /* Shadow at the top */
             text-align: center;
         }
 
