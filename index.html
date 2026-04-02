@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinoccio Pub</title>
     <style>
-        /* Import your custom font */
+        /* Font Setup */
         @font-face {
             font-family: 'Mono';
-            src: url('fonts/CommitMono-400-Regular.woff') format('woff');
+            src: url('CommitMono-400-Regular.woff') format('woff');
             font-weight: 400;
             font-style: normal;
         }
@@ -17,15 +17,21 @@
             margin: 0;
             padding: 0;
             background-color: #AEADAE;
+            height: 100vh;
             display: flex;
-            flex-direction: column; /* Stacks elements vertically */
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            justify-content: center; /* Centers start-img.png horizontally */
+            align-items: center;     /* Centers start-img.png vertically */
+            overflow: hidden;
         }
 
-        .logo-container {
-            text-align: center;
+        /* Top Left Header Group */
+        .header-group {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Spacing between logo and text */
         }
 
         .logo {
@@ -34,27 +40,34 @@
             display: block;
         }
 
-        /* The descriptive text */
         .description {
             font-family: 'Mono', monospace;
-            font-size: 1rem;
-            color: #333;
-            margin-top: 20px; /* Padding between logo and text */
-            text-align: center;
-            line-height: 1.5;
-            max-width: 800px;
+            font-size: 12px;
+            color: #FFFFFF; /* White text */
+            line-height: 1.4;
+            text-transform: none;
+        }
+
+        /* Center Image */
+        .center-image {
+            max-width: 60%; /* Adjusted so it doesn't collide with the massive logo */
+            max-height: 60vh;
+            height: auto;
+            z-index: -1; /* Keeps it behind the logo if they overlap */
         }
     </style>
 </head>
 <body>
 
-    <div class="logo-container">
+    <div class="header-group">
         <img src="pinoccio-logo.png" alt="Pinoccio Logo" class="logo">
         <div class="description">
             Independent publishing house primarily focused on music and poetry.<br>
-            Amsterdam - Gothenburg
+            Amsterdam — Gothenburg
         </div>
     </div>
+
+    <img src="start-img.png" alt="Start Image" class="center-image">
 
 </body>
 </html>
