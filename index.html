@@ -82,6 +82,25 @@
                 margin-top: 0;
             }
         }
+
+/* Apply this class to your dangling image */
+.pendulum {
+    /* Set the pivot point to the top center */
+    transform-origin: top center;
+    /* Create the animation: 3 seconds long, infinite loop, back-and-forth movement */
+    animation: swing 3s ease-in-out infinite alternate;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(-10deg); /* Tilt left */
+    }
+    100% {
+        transform: rotate(10deg); /* Tilt right */
+    }
+}
+
+
     </style>
 </head>
 <body>
