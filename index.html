@@ -17,43 +17,76 @@
             margin: 0;
             padding: 0;
             background-color: #AEADAE;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            justify-content: center; /* Centers start-img.png horizontally */
-            align-items: center;     /* Centers start-img.png vertically */
-            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden; /* Prevents side-scrolling on mobile */
         }
 
-        /* Top Left Header Group */
+        /* Desktop Positioning */
         .header-group {
             position: absolute;
-            top: 30px;
-            left: 30px;
+            top: 40px;
+            left: 40px;
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Spacing between logo and text */
+            gap: 15px;
+            z-index: 10;
         }
 
         .logo {
-            width: 800px;
+            width: 800px; /* Your requested desktop size */
+            max-width: 90vw; /* Safety net so it never exceeds screen width */
             height: auto;
-            display: block;
         }
 
         .description {
             font-family: 'Mono', monospace;
             font-size: 12px;
-            color: #FFFFFF; /* White text */
-            line-height: 1.4;
-            text-transform: none;
+            color: #FFFFFF;
+            line-height: 1.6;
+            max-width: 500px;
         }
 
         /* Center Image */
         .center-image {
-            max-width: 60%; /* Adjusted so it doesn't collide with the massive logo */
-            max-height: 60vh;
+            max-width: 50%;
+            max-height: 50vh;
             height: auto;
-            z-index: -1; /* Keeps it behind the logo if they overlap */
+            margin-top: 100px; /* Pushes it down so it doesn't hide under the 800px logo */
+        }
+
+        /* MOBILE ADJUSTMENTS (Screens smaller than 768px) */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                justify-content: flex-start; /* Stack from top down */
+                padding: 20px;
+                height: auto;
+            }
+
+            .header-group {
+                position: static; /* Removes the "top-left" absolute floating */
+                align-items: center;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .logo {
+                width: 100%; /* Scales to phone width */
+                max-width: 300px; /* Keeps it legible but not overwhelming */
+            }
+
+            .description {
+                font-size: 11px;
+                padding: 0 10px;
+            }
+
+            .center-image {
+                max-width: 80%;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
