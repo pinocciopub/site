@@ -5,42 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinoccio Pub</title>
     <style>
+        /* Import your custom font */
+        @font-face {
+            font-family: 'Mono';
+            src: url('fonts/CommitMono-400-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background-color: #AEADAE;
-            font-family: sans-serif;
-            /* This centers the content in the middle of the screen */
             display: flex;
+            flex-direction: column; /* Stacks elements vertically */
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden; /* Prevents scrollbars if the images are large */
+            min-height: 100vh;
         }
 
-        /* Logo in the top left */
+        .logo-container {
+            text-align: center;
+        }
+
         .logo {
-            position: absolute;
-            top: 30px;
-            left: 30px;
             width: 800px;
             height: auto;
+            display: block;
         }
 
-        /* The main center image */
-        .center-image {
-            max-width: 80%;  /* Ensures it doesn't hit the edges of the screen */
-            max-height: 70vh; /* Keeps it from overlapping with the logo area */
-            height: auto;
-            display: block;
+        /* The descriptive text */
+        .description {
+            font-family: 'Mono', monospace;
+            font-size: 1rem;
+            color: #333;
+            margin-top: 20px; /* Padding between logo and text */
+            text-align: center;
+            line-height: 1.5;
+            max-width: 800px;
         }
     </style>
 </head>
 <body>
 
-    <img src="pinoccio-logo.png" alt="Pinoccio Logo" class="logo">
-
-    <img src="start-img.png" alt="Start Image" class="center-image">
+    <div class="logo-container">
+        <img src="pinoccio-logo.png" alt="Pinoccio Logo" class="logo">
+        <div class="description">
+            Independent publishing house primarily focused on music and poetry.<br>
+            Amsterdam - Gothenburg
+        </div>
+    </div>
 
 </body>
 </html>
