@@ -49,17 +49,21 @@
             text-align: left;
         }
 
-        /* Styling the Press Link */
+        /* Added class to control the gap for the city line */
+        .city-line {
+            display: block;
+            margin-top: 10px; /* This creates the space you see on desktop */
+        }
+
         .press-link {
             display: inline-block;
             margin-top: 10px;
-            color: #0000FF; /* Classic HTML Blue */
+            color: #0000FF;
             text-decoration: underline;
             font-family: 'Mono', monospace;
             font-size: 12px;
         }
 
-        /* The Animated Center Image */
         .center-image {
             max-width: 50%;
             max-height: 60vh;
@@ -102,8 +106,12 @@
 
             .description {
                 font-size: 11px;
-                line-height: 1.2;
+                line-height: 1.3; /* Slightly relaxed for better legibility */
                 width: 100%;
+            }
+
+            .city-line {
+                margin-top: 8px; /* Force the space back on mobile */
             }
 
             .press-link {
@@ -123,9 +131,8 @@
     <div class="header-group">
         <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
         <div class="description">
-            Independent publishing house primarily focused on music and poetry.<br>
-            Amsterdam — Gothenburg
-            <br>
+            Independent publishing house primarily focused on music and poetry.
+            <span class="city-line">Amsterdam — Gothenburg</span>
             <a href="skammen-press.html" class="press-link">[PRESS]</a>
         </div>
     </div>
