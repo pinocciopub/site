@@ -23,10 +23,10 @@
             overflow-x: hidden;
         }
 
-        /* Desktop Positioning */
+        /* Desktop Positioning - 20px symmetrical padding */
         .header-group {
             position: absolute;
-            top: 20px; /* Updated to 20px */
+            top: 20px;
             left: 20px;
             display: flex;
             flex-direction: column;
@@ -46,9 +46,10 @@
             font-size: 12px;
             color: #000000;
             line-height: 1.6;
+            text-align: left;
         }
 
-        /* The Animated Center Image */
+        /* The Animated Center Image (Dangling Illustration) */
         .center-image {
             max-width: 50%;
             max-height: 60vh;
@@ -68,7 +69,7 @@
             body {
                 flex-direction: column;
                 justify-content: flex-start;
-                padding: 40px 20px;
+                padding: 20px;
                 height: auto;
                 overflow-y: auto;
             }
@@ -78,20 +79,21 @@
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                text-align: center;
+                /* Left-aligning header content for mobile */
+                align-items: flex-start; 
+                text-align: left; 
                 margin-bottom: 40px;
             }
 
             .logo {
                 width: 100%;
                 max-width: 300px;
-                margin: 0 auto;
+                margin: 0; /* Ensures logo doesn't center-align */
             }
 
             .description {
                 font-size: 11px;
-                line-height: 1.2; /* Decreased leading for mobile */
+                line-height: 1.2; /* Tightened leading for mobile */
                 width: 100%;
             }
 
