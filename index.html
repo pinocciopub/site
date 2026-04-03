@@ -23,10 +23,10 @@
             overflow-x: hidden;
         }
 
-        /* Desktop Positioning - 20px symmetrical padding */
+        /* Desktop Positioning */
         .header-group {
             position: absolute;
-            top: 10px;
+            top: 20px;
             left: 20px;
             display: flex;
             flex-direction: column;
@@ -49,7 +49,17 @@
             text-align: left;
         }
 
-        /* The Animated Center Image (Dangling Illustration) */
+        /* Styling the Press Link */
+        .press-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0000FF; /* Classic HTML Blue */
+            text-decoration: underline;
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* The Animated Center Image */
         .center-image {
             max-width: 50%;
             max-height: 60vh;
@@ -79,7 +89,6 @@
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                /* Left-aligning header content for mobile */
                 align-items: flex-start; 
                 text-align: left; 
                 margin-bottom: 40px;
@@ -88,13 +97,18 @@
             .logo {
                 width: 100%;
                 max-width: 300px;
-                margin: 0; /* Ensures logo doesn't center-align */
+                margin: 0;
             }
 
             .description {
                 font-size: 11px;
-                line-height: 1.2; /* Tightened leading for mobile */
+                line-height: 1.2;
                 width: 100%;
+            }
+
+            .press-link {
+                font-size: 11px;
+                margin-top: 8px;
             }
 
             .center-image {
@@ -111,6 +125,8 @@
         <div class="description">
             Independent publishing house primarily focused on music and poetry.<br>
             Amsterdam — Gothenburg
+            <br>
+            <a href="skammen-press.html" class="press-link">[PRESS]</a>
         </div>
     </div>
 
