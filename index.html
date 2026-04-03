@@ -15,12 +15,12 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #EA2C2F;
+            background-color: #FFFFFF; /* Now White */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Prevents scrollbars during the swing */
+            overflow: hidden;
         }
 
         /* Top Left Header Group */
@@ -44,7 +44,7 @@
         .description {
             font-family: 'Mono', monospace;
             font-size: 12px;
-            color: #FFFFFF;
+            color: #000000; /* Now Black */
             line-height: 1.6;
         }
 
@@ -54,20 +54,13 @@
             max-height: 60vh;
             height: auto;
             margin-top: 120px;
-            
-            /* Animation Settings */
-            transform-origin: top center; /* Pivots from the top where the hook is */
+            transform-origin: top center;
             animation: swing 3.5s ease-in-out infinite alternate;
         }
 
-        /* The Swing Motion */
         @keyframes swing {
-            0% {
-                transform: rotate(-6deg);
-            }
-            100% {
-                transform: rotate(6deg);
-            }
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
         }
 
         /* MOBILE ADJUSTMENTS */
@@ -79,19 +72,16 @@
                 height: auto;
                 overflow-y: auto;
             }
-
             .header-group {
                 position: static;
                 align-items: center;
                 text-align: center;
                 margin-bottom: 40px;
             }
-
             .logo {
                 width: 100%;
                 max-width: 300px;
             }
-            
             .center-image {
                 max-width: 80%;
                 margin-top: 0;
@@ -102,7 +92,7 @@
 <body>
 
     <div class="header-group">
-        <img src="pinoccio-logo-yellow.png" alt="Pinoccio Logo" class="logo">
+        <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
         <div class="description">
             Independent publishing house primarily focused on music and poetry.<br>
             Amsterdam — Gothenburg
