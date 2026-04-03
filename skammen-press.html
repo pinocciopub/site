@@ -3,50 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinoccio Pub</title>
+    <title>Pinoccio Pub | SKAMMEN</title>
     <style>
+        @font-face {
+            font-family: 'Mono';
+            src: url('CommitMono-400-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #AEADAE;
+            background-color: #FFFFFF;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Desktop Positioning */
+        .header-group {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
         }
 
         .logo {
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            width: 800px;
+            width: 600px; 
+            max-width: 90vw;
             height: auto;
+            display: block;
         }
 
-        /* The white content box */
-        .content-box {
-            background-color: #FFFFFF;
-            padding: 40px;
-            margin-top: 200px; /* Moves the box higher up */
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 800px;
+        .description {
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            color: #000000;
+            line-height: 1.6;
+            text-align: left; /* Keep left-aligned */
+        }
+
+        /* Scrollable Text Box */
+        .content-container {
+            max-width: 600px;
             width: 90%;
-            min-height: calc(100vh - 200px); /* Extends box to the end of the page */
-            text-align: center;
+            max-height: 60vh;
+            overflow-y: auto;
+            margin-top: 100px; 
+            padding-right: 15px;
         }
 
-        h1 {
-            color: #333333;
+        p {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.8;
             margin: 0;
-            font-weight: 300;
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 20px;
+                height: auto;
+                overflow-y: auto;
+            }
+
+            .header-group {
+                position: static;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                /* Changed from center to flex-start for left alignment */
+                align-items: flex-start; 
+                text-align: left; 
+                margin-bottom: 30px;
+            }
+
+            .logo {
+                width: 100%;
+                max-width: 300px;
+                margin: 0; /* Removed auto margin to keep it left */
+            }
+
+            .description {
+                font-size: 11px;
+                line-height: 1.2;
+                width: 100%;
+            }
+
+            .content-container {
+                max-height: none;
+                margin-top: 0;
+                padding-right: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <img src="pinoccio-logo.png" alt="Pinoccio Logo" class="logo">
+    <div class="header-group">
+        <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
+        <div class="description">
+            Independent publishing house primarily focused on music and poetry.<br>
+            Amsterdam — Gothenburg
+        </div>
+    </div>
 
-    <div class="content-box">
-        <h1>Coming Soon</h1>
+    <div class="content-container">
+        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i Hästpojken, låtskrivare och gitarrist i Bye Bye Bicycle, och nu senast som ena halvan av duon Skagerak (tillsammans med Sambassadeurs Joachim Läckberg) har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. För första gången bärs de nu upp av hans egen röst.</p>
     </div>
 
 </body>
