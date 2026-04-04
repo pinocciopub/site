@@ -24,10 +24,10 @@
             overflow-x: hidden;
         }
 
-        /* HEADER - Scrolls naturally with the page */
+        /* HEADER - Scrolls naturally */
         .header-group {
             position: relative;
-            align-self: flex-start; /* Aligns header to the left */
+            align-self: flex-start;
             margin-top: 20px;
             margin-left: 20px;
             display: flex;
@@ -69,11 +69,11 @@
             text-decoration: underline;
         }
 
-        /* CONTENT AREA - Natural scroll */
+        /* CONTENT AREA */
         .content-container {
             max-width: 600px;
             width: 90%;
-            margin-top: 80px; /* Space between header and body content */
+            margin-top: 80px; 
             margin-bottom: 100px; 
             display: flex;
             flex-direction: column;
@@ -119,8 +119,79 @@
         }
 
         .sc-player {
-            margin-top: 40px; 
+            margin-top: 60px; 
             width: 100%;
+        }
+
+        /* IMAGE HOVER DOWNLOAD SECTION */
+        .image-gallery {
+            display: flex;
+            gap: 20px;
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* The container for the download interaction */
+        .download-wrapper {
+            position: relative; /* Base for the overlay */
+            width: 100%;
+            display: block;
+            cursor: pointer;
+            overflow: hidden; /* Keeps the overlay tidy */
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: opacity 0.3s ease; /* Smooth transition */
+        }
+
+        /* The white/grey wash overlay */
+        .download-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7); /* White wash (grey wash effect) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+
+        /* The simple download icon (⬇ symbol) */
+        .download-icon {
+            font-size: 36px;
+            color: #000000;
+            font-family: sans-serif; /* Keep icon clean */
+        }
+
+        /* Hover interaction */
+        .download-wrapper:hover .gallery-img {
+            opacity: 0.8; /* Slight dimming of image */
+        }
+
+        .download-wrapper:hover .download-overlay {
+            opacity: 1; /* Show overlay and icon */
+        }
+
+        /* Image description text */
+        .image-caption {
+            font-family: 'Mono', monospace;
+            font-size: 11px;
+            color: #000000;
+            margin-top: 8px;
+            display: none; /* Keep it invisible on desktop for maximum clean look */
         }
 
         /* MOBILE ADJUSTMENTS */
@@ -141,6 +212,16 @@
 
             .skammen-logo {
                 max-width: 250px;
+            }
+
+            .image-gallery {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            /* On mobile, tapping shows the icon, but captions help */
+            .image-caption {
+                display: block;
             }
         }
     </style>
@@ -164,17 +245,36 @@
 
         <img src="kalla-vindar-logo.jpg" alt="Kalla Vindar Logo" class="centered-logo">
         
-        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i   <strong>Hästpojken</strong>, låtskrivare och gitarrist 
-           i <strong>Bye Bye Bicycle</strong>, och nu senast som ena halvan av duon <strong>Skagerak</strong> (tillsammans med <strong>Sambassadeurs</strong> Joachim Läckberg) 
-            har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. 
-            För första gången bärs de nu upp av hans egen röst.</p> <br>
-        <p>Kalla vindar (PP005) är den första singeln från ett kommande album, inspelat och mixat i samarbete med <strong>Mattias Glavå</strong> i Kungstens studio, Göteborg. </p>
-            <br>
+        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i Hästpojken, låtskrivare och gitarrist i Bye Bye Bicycle, och nu senast som ena halvan av duon Skagerak (tillsammans med Sambassadeurs Joachim Läckberg) har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. För första gången bärs de nu upp av hans egen röst.</p>
+
         <div class="sc-player">
             <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2296469558&color=%230000ff&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
             </iframe>
         </div>
+
+        <div class="image-gallery">
+            <div class="gallery-item">
+                <a href="kalla-vindar-final-cover.png" download="kalla-vindar-final-cover.png" class="download-wrapper">
+                    <img src="kalla-vindar-final-cover.png" alt="Kalla Vindar Cover" class="gallery-img">
+                    <div class="download-overlay">
+                        <span class="download-icon">⬇</span>
+                    </div>
+                </a>
+                <span class="image-caption">[Cover Art]</span>
+            </div>
+
+            <div class="gallery-item">
+                <a href="skammen_profilbild.jpg" download="skammen_profilbild.jpg" class="download-wrapper">
+                    <img src="skammen_profilbild.jpg" alt="Skammen Profile" class="gallery-img">
+                    <div class="download-overlay">
+                        <span class="download-icon">⬇</span>
+                    </div>
+                </a>
+                <span class="image-caption">[Press Photo]</span>
+            </div>
+        </div>
+
     </div>
 
 </body>
