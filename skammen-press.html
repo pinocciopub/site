@@ -24,16 +24,16 @@
             overflow-x: hidden;
         }
 
-        /* FIXED HEADER - No background, text/logo stay put while body moves under */
+        /* HEADER - Scrolls naturally with the page */
         .header-group {
-            position: fixed;
-            top: 20px;
-            left: 20px;
+            position: relative;
+            align-self: flex-start; /* Aligns header to the left */
+            margin-top: 20px;
+            margin-left: 20px;
             display: flex;
             flex-direction: column;
             gap: 5px;
-            z-index: 100;
-            /* No background color here so content is visible behind it */
+            z-index: 10;
         }
 
         .logo {
@@ -73,7 +73,7 @@
         .content-container {
             max-width: 600px;
             width: 90%;
-            margin-top: 240px; /* Offset so it starts below header */
+            margin-top: 80px; /* Space between header and body content */
             margin-bottom: 100px; 
             display: flex;
             flex-direction: column;
@@ -125,12 +125,6 @@
 
         /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
-            .header-group {
-                position: fixed;
-                top: 20px;
-                left: 20px;
-            }
-
             .logo {
                 max-width: 300px;
             }
@@ -141,7 +135,7 @@
             }
 
             .content-container {
-                margin-top: 200px;
+                margin-top: 40px;
                 width: 85%;
             }
 
