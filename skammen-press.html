@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* Desktop Header Layout */
+        /* Desktop Positioning - 20px symmetrical padding */
         .header-group {
             position: absolute;
             top: 20px;
@@ -51,19 +51,20 @@
 
         .city-line {
             display: block;
-            margin-top: 2px; /* Tightened per your request */
+            margin-top: 4px;
         }
 
-        .nav-link {
+        /* Clean Blue Link Styling - matching index.html */
+        .press-link {
             display: inline-block;
             margin-top: 10px;
-            color: #0000FF; 
+            color: #0000FF; /* Classic HTML Blue */
             text-decoration: none; 
             font-family: 'Mono', monospace;
             font-size: 12px;
         }
 
-        .nav-link:hover {
+        .press-link:hover {
             text-decoration: underline;
         }
 
@@ -82,9 +83,9 @@
         /* Centered Logo Styling */
         .centered-logo {
             width: 100%;
-            max-width: 300px; /* Adjust size as needed */
+            max-width: 300px;
             height: auto;
-            margin: 0 auto 40px auto; /* Centered with bottom margin */
+            margin: 0 auto 40px auto;
             display: block;
         }
 
@@ -95,7 +96,7 @@
             height: auto;
             display: block;
             margin-bottom: 20px;
-            align-self: flex-start; /* Keeps it left aligned */
+            align-self: flex-start;
         }
 
         p {
@@ -132,12 +133,28 @@
                 flex-direction: column;
                 align-items: flex-start; 
                 text-align: left; 
-                margin-bottom: 30px;
+                margin-bottom: 40px; /* Matched to index.html */
             }
 
             .logo {
                 width: 100%;
                 max-width: 300px;
+                margin: 0;
+            }
+
+            .description {
+                font-size: 11px;
+                line-height: 1.3;
+                width: 100%;
+            }
+
+            .city-line {
+                margin-top: 8px;
+            }
+
+            .press-link {
+                font-size: 11px;
+                margin-top: 8px;
             }
 
             .content-container {
@@ -155,7 +172,7 @@
         <div class="description">
             Independent publishing house primarily focused on music and poetry.
             <span class="city-line">Amsterdam — Gothenburg</span>
-            <a href="index.html" class="nav-link">[HOME]</a>
+            <a href="index.html" class="press-link">[HOME]</a>
         </div>
     </div>
 
