@@ -94,11 +94,16 @@
             display: block;
         }
 
-        .press-text {
+        .insta-link {
             font-family: 'Mono', monospace;
             font-size: 12px;
             color: #000000;
+            text-decoration: none;
             white-space: nowrap;
+        }
+
+        .insta-link:hover {
+            text-decoration: underline;
         }
 
         .centered-logo {
@@ -119,7 +124,7 @@
         }
 
         .sc-player {
-            margin-top: 20px; 
+            margin-top: 40px; 
             width: 100%;
         }
 
@@ -138,60 +143,57 @@
             align-items: flex-start;
         }
 
-        /* The container for the download interaction */
         .download-wrapper {
-            position: relative; /* Base for the overlay */
+            position: relative;
             width: 100%;
+            aspect-ratio: 1 / 1; 
             display: block;
             cursor: pointer;
-            overflow: hidden; /* Keeps the overlay tidy */
+            overflow: hidden;
+            background-color: #f9f9f9;
         }
 
         .gallery-img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            transition: opacity 0.3s ease; /* Smooth transition */
+            transition: opacity 0.3s ease;
         }
 
-        /* The white/grey wash overlay */
         .download-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.7); /* White wash (grey wash effect) */
+            background-color: rgba(255, 255, 255, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0; /* Hidden by default */
+            opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        /* The simple download icon (⬇ symbol) */
         .download-icon {
-            font-size: 36px;
+            font-size: 32px;
             color: #000000;
-            font-family: sans-serif; /* Keep icon clean */
+            font-family: sans-serif;
         }
 
-        /* Hover interaction */
         .download-wrapper:hover .gallery-img {
-            opacity: 0.8; /* Slight dimming of image */
+            opacity: 0.8;
         }
 
         .download-wrapper:hover .download-overlay {
-            opacity: 1; /* Show overlay and icon */
+            opacity: 1;
         }
 
-        /* Image description text */
         .image-caption {
             font-family: 'Mono', monospace;
             font-size: 11px;
             color: #000000;
             margin-top: 8px;
-            display: none; /* Keep it invisible on desktop for maximum clean look */
         }
 
         /* MOBILE ADJUSTMENTS */
@@ -219,7 +221,10 @@
                 gap: 40px;
             }
 
-            /* On mobile, tapping shows the icon, but captions help */
+            .download-wrapper {
+                aspect-ratio: auto; 
+            }
+
             .image-caption {
                 display: block;
             }
@@ -240,7 +245,7 @@
     <div class="content-container">
         <div class="logo-row">
             <img src="skammen-logo-black.png" alt="Skammen Logo" class="skammen-logo">
-            <span class="press-text">[PRESS]</span>
+            <a href="https://www.instagram.com/skammen_/" target="_blank" class="insta-link">[INSTAGRAM]</a>
         </div>
 
         <img src="kalla-vindar-logo.jpg" alt="Kalla Vindar Logo" class="centered-logo">
@@ -253,7 +258,7 @@
             </iframe>
         </div>
 
-       <div class="image-gallery">
+        <div class="image-gallery">
             <div class="gallery-item">
                 <a href="skammen_profilbild.jpg" download="skammen_profilbild.jpg" class="download-wrapper">
                     <img src="skammen_profilbild.jpg" alt="Skammen Profile" class="gallery-img">
@@ -274,6 +279,7 @@
                 <span class="image-caption">[Cover Art]</span>
             </div>
         </div>
+
     </div>
 
 </body>
