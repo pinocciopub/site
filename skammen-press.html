@@ -137,4 +137,73 @@
                 justify-content: flex-start;
                 padding: 20px;
                 height: auto;
-                overflow-y
+                overflow-y: auto;
+            }
+
+            .header-group {
+                position: static;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start; 
+                text-align: left; 
+                margin-bottom: 40px;
+            }
+
+            .logo {
+                width: 100%;
+                max-width: 300px;
+                margin: 0;
+            }
+
+            .description {
+                font-size: 11px;
+                line-height: 1.3;
+                width: 100%;
+            }
+
+            .city-line {
+                margin-top: 8px;
+            }
+
+            .press-link {
+                font-size: 11px;
+                margin-top: 8px;
+            }
+
+            .content-container {
+                max-height: none;
+                margin-top: 0;
+                padding-right: 0;
+            }
+
+            .logo-row {
+                flex-wrap: wrap; /* Wraps text if logo is too wide on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-group">
+        <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
+        <div class="description">
+            Independent publishing house primarily focused on music and poetry.
+            <span class="city-line">Amsterdam — Gothenburg</span>
+            <a href="index.html" class="press-link">[HOME]</a>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="logo-row">
+            <img src="skammen-logo-black.png" alt="Skammen Logo" class="skammen-logo">
+            <span class="press-text">[PRESS]</span>
+        </div>
+
+        <img src="kalla-vindar-logo.jpg" alt="Kalla Vindar Logo" class="centered-logo">
+        
+        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i Hästpojken, låtskrivare och gitarrist i Bye Bye Bicycle, och nu senast som ena halvan av duon Skagerak (tillsammans med Sambassadeurs Joachim Läckberg) har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. För första gången bärs de nu upp av hans egen röst.</p>
+    </div>
+
+</body>
+</html>
