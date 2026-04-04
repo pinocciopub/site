@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* HEADER - Scrolls naturally */
+        /* HEADER */
         .header-group {
             position: relative;
             align-self: flex-start;
@@ -84,7 +84,7 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 20px;
-            align-self: flex-start;
+            width: 100%;
         }
 
         .skammen-logo {
@@ -94,10 +94,10 @@
             display: block;
         }
 
-    .insta-link {
+        .insta-link {
             font-family: 'Mono', monospace;
             font-size: 12px;
-            color: #0000FF;
+            color: #0000FF; 
             text-decoration: none;
             white-space: nowrap;
         }
@@ -118,9 +118,10 @@
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
             color: #000000;
-            line-height: 1.8;
+            line-height: 1.5; /* Tightened from 1.8 */
             margin: 0;
             text-align: left;
+            max-width: 520px; /* Constrained for better rags */
         }
 
         .sc-player {
@@ -128,7 +129,7 @@
             width: 100%;
         }
 
-        /* IMAGE HOVER DOWNLOAD SECTION */
+        /* IMAGE GALLERY */
         .image-gallery {
             display: flex;
             gap: 20px;
@@ -212,8 +213,22 @@
                 width: 85%;
             }
 
+            .logo-row {
+                justify-content: space-between;
+                gap: 5px;
+            }
+
             .skammen-logo {
-                max-width: 250px;
+                max-width: 200px; /* Scaled down for mobile row */
+            }
+
+            .insta-link {
+                font-size: 10px;
+            }
+
+            p {
+                font-size: 13px;
+                max-width: 100%; /* Use full container width on narrow screens */
             }
 
             .image-gallery {
@@ -222,11 +237,7 @@
             }
 
             .download-wrapper {
-                aspect-ratio: auto; 
-            }
-
-            .image-caption {
-                display: block;
+                aspect-ratio: auto; /* Let images be full height if portrait */
             }
         }
     </style>
@@ -250,9 +261,8 @@
 
         <img src="kalla-vindar-logo.jpg" alt="Kalla Vindar Logo" class="centered-logo">
         
-        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i <strong>Hästpojken</strong>, låtskrivare och gitarrist i <strong>Bye Bye Bicycle</strong>, och nu senast som ena halvan av duon <strong>Skagerak</strong>(tillsammans med <strong>Sambassadeurs</strong>Joachim Läckberg) har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. För första gången bärs de nu upp av hans egen röst.</p><br>
-       <p>Kalla vindar är skriven och inspelad av Samuel Petersson i Tossene, Bohuslän. 2014-2024. Mixad och mastrad av <strong>Mattias Glavå</strong> i Kungsten Studios, Göteborg. </p>
-  
+        <p>SKAMMEN är Samuel Petersson. Med ett förflutet som livemusiker i Hästpojken, låtskrivare och gitarrist i Bye Bye Bicycle, och nu senast som ena halvan av duon Skagerak (tillsammans med Sambassadeurs Joachim Läckberg) har han under åren utvecklat ett säreget melodispråk med storslagna produktioner. För första gången bärs de nu upp av hans egen röst.</p>
+
         <div class="sc-player">
             <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2296469558&color=%230000ff&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
@@ -267,7 +277,7 @@
                         <span class="download-icon">⬇</span>
                     </div>
                 </a>
-                <span class="image-caption">[Foto: Samuel Petersson]</span>
+                <span class="image-caption">[Press Photo]</span>
             </div>
 
             <div class="gallery-item">
@@ -277,10 +287,9 @@
                         <span class="download-icon">⬇</span>
                     </div>
                 </a>
-                <span class="image-caption">[Omslag]</span>
+                <span class="image-caption">[Cover Art]</span>
             </div>
         </div>
-
     </div>
 
 </body>
