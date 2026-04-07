@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* HEADER - Matched to Home Page */
+        /* HEADER */
         .header-group {
             position: absolute;
             top: 20px;
@@ -72,7 +72,7 @@
         .content-container {
             max-width: 600px;
             width: 90%;
-            margin-top: 220px; /* Offset for absolute header */
+            margin-top: 220px; 
             margin-bottom: 100px; 
             display: flex;
             flex-direction: column;
@@ -117,7 +117,7 @@
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
             color: #000000;
-            line-height: 1.7; /* Increased lead */
+            line-height: 1.7; 
             margin: 0;
             text-align: left;
             width: 100%;
@@ -128,7 +128,7 @@
             width: 100%;
         }
 
-        /* IMAGE GALLERY - Fixed equal height */
+        /* IMAGE GALLERY */
         .image-gallery {
             display: flex;
             gap: 20px;
@@ -188,7 +188,7 @@
             margin-top: 8px;
         }
 
-        /* MOBILE ADJUSTMENTS - Matched to Home Page */
+        /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
             body {
                 padding: 20px;
@@ -212,11 +212,11 @@
             }
 
             .city-line {
-                margin-top: 8px; /* Matched to Home Page */
+                margin-top: 8px;
             }
 
             .nav-link {
-                font-size: 11px;
+                font-size: 11px; /* Home link size */
                 margin-top: 8px;
             }
 
@@ -226,8 +226,8 @@
             }
 
             .logo-row {
-                justify-content: space-between;
-                gap: 5px;
+                justify-content: flex-start; /* Align closer to the logo */
+                gap: 10px; /* Reduced gap to move Instagram to the left */
             }
 
             .skammen-logo {
@@ -235,12 +235,12 @@
             }
 
             .insta-link {
-                font-size: 10px;
+                font-size: 11px; /* Matched to [HOME] size */
             }
 
             p {
                 font-size: 13px;
-                line-height: 1.6; /* Mobile lead */
+                line-height: 1.6;
             }
 
             .image-gallery {
@@ -274,7 +274,8 @@
         <p>Kalla vindar är skriven och inspelad av Samuel Petersson. Tossene, Bohuslän, 2014-2024. Mixad och mastrad av <strong>Mattias Glavå</strong> i Kungsten Studios, Göteborg. 2025-2026.</p>
         <br>
         <p>Press-kontakt: Alexander Sand, Pinoccio Pub. <br>
-           ✉ info@pinocciopub.com 📞 +31 6 43734683 </p>
+           ✉ info@pinocciopub.com  <br>
+            📞 +31 6 43734683 </p>
 
         <div class="sc-player">
             <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
