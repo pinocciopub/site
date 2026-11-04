@@ -24,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* Desktop Positioning */
         .header-group {
             position: absolute;
             top: 20px;
@@ -36,9 +35,9 @@
         }
 
         .logo {
-            width: 600px; 
-            max-width: 90vw;
-            height: auto;
+            height: 75px; 
+            width: auto; 
+            max-width: none; 
             display: block;
         }
 
@@ -66,7 +65,6 @@
             text-decoration: underline;
         }
 
-        /* Catalogue Grid Layout */
         .catalogue-container {
             display: none; 
             opacity: 0;
@@ -99,7 +97,6 @@
             text-transform: uppercase;
         }
 
-        /* The Animated Center Image */
         .center-image {
             max-width: 50%;
             max-height: 60vh;
@@ -115,7 +112,6 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -132,8 +128,9 @@
             }
 
             .logo {
-                width: 100%;
-                max-width: 300px;
+                height: 45px; 
+                width: auto;
+                max-width: 100%;
             }
 
             .description {
@@ -156,19 +153,19 @@
 <body>
 
     <div class="header-group">
-        <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
+        <img src="pp-logo-01-02.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
         <div class="description">
             <a id="catalogue-trigger" class="press-link">[CATALOGUE]</a>
             
             <div id="catalogue-content" class="catalogue-container">
                 <div class="numbers-grid">
-                    <a href="001-apokryferna.html" class="cat-number" data-title="AP0KRYFERNA / NATTBOK (2016)&#10;ALEXANDER SAND&#10;BOOK">001</a>
-                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ETT MISSLYCKAT HJÄRTA (2019)&#10;ALEXANDER SAND&#10;BOOK">002</a>
-                    <a href="003-sokaren.html" class="cat-number" data-title="SÖKAREN (2024)&#10;ALEX SAND&#10;SINGLE - DIGITAL">003</a>
-                    <a href="004-paraply.html" class="cat-number" data-title="PARAPLY (2025)&#10;ALEXANDER SAND&#10;SINGLE - DIGITAL">004</a>
-                    <a href="005-kalla-vindar.html" class="cat-number" data-title="KALLA VINDAR (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL">005</a>
-                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="LYFTER (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL">006</a>
-                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MITT I NATUREN (2026)&#10;MOE&#10;EP - DIGITAL">007</a>
+                    <a href="001-apokryferna.html" class="cat-number" data-title="AP0KRYFERNA / NATTBOK (2016)&#10;ALEXANDER SAND&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
+                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ETT MISSLYCKAT HJÄRTA (2019)&#10;ALEXANDER SAND&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
+                    <a href="003-sokaren.html" class="cat-number" data-title="SÖKAREN (2024)&#10;ALEX SAND&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
+                    <a href="004-paraply.html" class="cat-number" data-title="PARAPLY (2025)&#10;ALEXANDER SAND&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
+                    <a href="005-kalla-vindar.html" class="cat-number" data-title="KALLA VINDAR (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
+                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="LYFTER (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
+                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MITT I NATUREN (2026)&#10;MOE&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
                 </div>
                 <div id="hover-title" class="title-display"></div>
             </div>
@@ -183,6 +180,10 @@
         const landingImage = document.getElementById('landing-image');
         const hoverTitleDisplay = document.getElementById('hover-title');
         const catNumbers = document.querySelectorAll('.cat-number');
+        
+        // Grab the main logo and its default source
+        const mainLogo = document.getElementById('main-logo');
+        const defaultLogoSrc = mainLogo.getAttribute('src');
 
         catalogueTrigger.addEventListener('click', (e) => {
             e.preventDefault(); 
@@ -201,11 +202,20 @@
 
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
+                // Show title
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                // Swap logo
+                const logoFile = this.getAttribute('data-logo');
+                if (logoFile) {
+                    mainLogo.src = logoFile;
+                }
             });
             
             link.addEventListener('mouseleave', function() {
+                // Clear title
                 hoverTitleDisplay.textContent = '';
+                // Revert logo back to default for this page
+                mainLogo.src = defaultLogoSrc;
             });
         });
     </script>
