@@ -16,7 +16,6 @@
         body {
             margin: 0;
             padding: 0;
-            /* Added GIF background properties */
             background-image: url('https://i.pinimg.com/originals/2c/ac/d1/2cacd1d21f700e15b8f1e9baecb7ae02.gif');
             background-size: cover;
             background-position: center;
@@ -53,20 +52,49 @@
             color: #000000;
             line-height: 1.6;
             text-align: left;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .city-line {
-            display: block;
-            margin-top: 4px;
+        /* Catalogue is permanently visible on this page */
+        .catalogue-container {
+            display: flex;
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            gap: 40px;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            gap: 5px 15px;
+        }
+
+        .cat-number {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cat-number:hover {
+            text-decoration: underline;
+        }
+
+        .title-display {
+            white-space: pre-line;
+            min-width: 300px;
+            text-transform: uppercase;
         }
 
         .nav-link {
             display: inline-block;
-            margin-top: 10px;
             color: #0000FF; 
             text-decoration: none; 
             font-family: 'Mono', monospace;
             font-size: 12px;
+            cursor: pointer;
         }
 
         .nav-link:hover {
@@ -210,9 +238,8 @@
             body { padding: 20px; }
             .header-group { position: static; width: 100%; margin-bottom: 40px; }
             .logo { width: 100%; max-width: 300px; }
-            .description { font-size: 11px; line-height: 1.3; width: 100%; }
-            .city-line { margin-top: 8px; }
-            .nav-link { font-size: 11px; margin-top: 8px; }
+            .description { flex-direction: column; gap: 10px; font-size: 11px; line-height: 1.3; width: 100%; }
+            .catalogue-container { flex-direction: column; gap: 20px; }
             .content-container { margin-top: 0; width: 100%; }
             .logo-row { justify-content: flex-start; gap: 10px; }
             .skammen-logo { max-width: 200px; }
@@ -225,13 +252,27 @@
 <body>
 
     <div class="header-group">
-        <img src="pinocciologo-black.png" alt="Pinoccio Logo" class="logo">
+        <!-- Changed to pp-logo-06.svg -->
+        <img src="pp-logo-06.svg" alt="Pinoccio Logo" class="logo">
         <div class="description">
-            Independent publishing house primarily focused on music and poetry.
-            <span class="city-line">Amsterdam — Gothenburg</span>
-            <a href="index.html" class="nav-link">[HOME]</a>
+            <a href="index.html" class="nav-link">[CATALOGUE]</a>
+            
+            <div id="catalogue-content" class="catalogue-container">
+                <div class="numbers-grid">
+                    <a href="001-apokryferna.html" class="cat-number" data-title="AP0KRYFERNA / NATTBOK (2016)&#10;ALEXANDER SAND&#10;BOOK">001</a>
+                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ETT MISSLYCKAT HJÄRTA (2019)&#10;ALEXANDER SAND&#10;BOOK">002</a>
+                    <a href="003-sokaren.html" class="cat-number" data-title="SÖKAREN (2024)&#10;ALEX SAND&#10;SINGLE - DIGITAL">003</a>
+                    <a href="004-paraply.html" class="cat-number" data-title="PARAPLY (2025)&#10;ALEXANDER SAND&#10;SINGLE - DIGITAL">004</a>
+                    <a href="005-kalla-vindar.html" class="cat-number" data-title="KALLA VINDAR (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL">005</a>
+                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="LYFTER (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL">006</a>
+                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MITT I NATUREN (2026)&#10;MOE&#10;EP - DIGITAL">007</a>
+                </div>
+                <div id="hover-title" class="title-display"></div>
+            </div>
         </div>
     </div>
+
+    <!-- No landing image (start-img.png) is present on this page -->
 
     <div class="content-container">
         <div class="logo-row">
@@ -279,5 +320,19 @@
         <br><br>
     </div>
 
+    <script>
+        const hoverTitleDisplay = document.getElementById('hover-title');
+        const catNumbers = document.querySelectorAll('.cat-number');
+
+        catNumbers.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                hoverTitleDisplay.textContent = this.getAttribute('data-title');
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                hoverTitleDisplay.textContent = '';
+            });
+        });
+    </script>
 </body>
 </html>
