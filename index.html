@@ -178,7 +178,7 @@
 
     <img src="start-img.png" alt="Dangling Illustration" id="landing-image" class="center-image">
 
-    <script>
+<script>
         const catalogueTrigger = document.getElementById('catalogue-trigger');
         const catalogueContent = document.getElementById('catalogue-content');
         const landingImage = document.getElementById('landing-image');
@@ -187,24 +187,32 @@
         
         const mainLogo = document.getElementById('main-logo');
         const defaultLogoSrc = mainLogo.getAttribute('src');
+        
+        let logoTimeout; // Variable to store our delay timer
 
-        catalogueTrigger.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            
-            landingImage.style.opacity = '0';
-            
-            setTimeout(() => {
-                landingImage.style.display = 'none';
+        // Only exists on the index page, so we check if it's there
+        if (catalogueTrigger) {
+            catalogueTrigger.addEventListener('click', (e) => {
+                e.preventDefault(); 
                 
-                catalogueContent.style.display = 'flex';
-                requestAnimationFrame(() => {
-                    catalogueContent.style.opacity = '1';
-                });
-            }, 500); 
-        });
+                landingImage.style.opacity = '0';
+                
+                setTimeout(() => {
+                    landingImage.style.display = 'none';
+                    
+                    catalogueContent.style.display = 'flex';
+                    requestAnimationFrame(() => {
+                        catalogueContent.style.opacity = '1';
+                    });
+                }, 500); 
+            });
+        }
 
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
+                // Cancel the revert if we hover over a new number quickly
+                clearTimeout(logoTimeout);
+                
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
                 const logoFile = this.getAttribute('data-logo');
                 if (logoFile) {
@@ -213,8 +221,13 @@
             });
             
             link.addEventListener('mouseleave', function() {
+                // Clear the text instantly
                 hoverTitleDisplay.textContent = '';
-                mainLogo.src = defaultLogoSrc;
+                
+                // Wait 100ms before reverting the logo
+                logoTimeout = setTimeout(() => {
+                    mainLogo.src = defaultLogoSrc;
+                }, 100); 
             });
         });
     </script>
