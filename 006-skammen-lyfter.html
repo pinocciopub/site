@@ -44,6 +44,7 @@
             width: auto;
             max-width: none;
             display: block;
+            transition: all 0.2s ease;
         }
 
         .description {
@@ -55,11 +56,14 @@
             display: flex;
             gap: 40px; 
             align-items: flex-start;
+            padding-bottom: 20px; 
         }
 
+        /* Updated to start hidden, just like the index page */
         .catalogue-container {
-            display: flex;
-            opacity: 1;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
             font-family: 'Mono', monospace;
             font-size: 12px;
             line-height: 1.6;
@@ -237,10 +241,8 @@
         @media (max-width: 768px) {
             body { padding: 20px; }
             .header-group { position: static; width: 100%; margin-bottom: 40px; }
-            
             .logo { height: 40px; width: auto; max-width: 100%; }
-            
-            .description { flex-direction: column; gap: 10px; font-size: 11px; line-height: 1.3; width: 100%; }
+            .description { flex-direction: column; gap: 10px; padding-bottom: 0;}
             .catalogue-container { flex-direction: column; gap: 20px; }
             .content-container { margin-top: 0; width: 100%; }
             .logo-row { justify-content: flex-start; gap: 10px; }
@@ -255,8 +257,9 @@
 
     <div class="header-group">
         <img src="pp-logo-06.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
-        <div class="description">
-            <a href="index.html" class="nav-link">[CATALOGUE]</a>
+        
+        <div class="description" id="menu-area">
+            <a href="index.html" class="nav-link" id="catalogue-trigger">[CATALOGUE]</a>
             
             <div id="catalogue-content" class="catalogue-container">
                 <div class="numbers-grid">
@@ -319,18 +322,55 @@
         <br><br>
     </div>
 
+    <!-- The exact same script handles the hover menu on the release pages -->
     <script>
+        const menuArea = document.getElementById('menu-area');
+        const catalogueContent = document.getElementById('catalogue-content');
+        const landingImage = document.getElementById('landing-image');
         const hoverTitleDisplay = document.getElementById('hover-title');
         const catNumbers = document.querySelectorAll('.cat-number');
         
         const mainLogo = document.getElementById('main-logo');
         const defaultLogoSrc = mainLogo.getAttribute('src');
         
-        let logoTimeout;
+        let numberHoverTimeout;
+        let menuCloseTimeout;
+
+        menuArea.addEventListener('mouseenter', () => {
+            clearTimeout(menuCloseTimeout); 
+            
+            if (landingImage) {
+                landingImage.style.opacity = '0';
+            }
+            
+            catalogueContent.style.display = 'flex';
+            requestAnimationFrame(() => {
+                catalogueContent.style.opacity = '1';
+            });
+        });
+
+        menuArea.addEventListener('mouseleave', () => {
+            menuCloseTimeout = setTimeout(() => {
+                catalogueContent.style.opacity = '0';
+                
+                hoverTitleDisplay.textContent = '';
+                mainLogo.src = defaultLogoSrc;
+
+                setTimeout(() => {
+                    if (catalogueContent.style.opacity === '0') {
+                        catalogueContent.style.display = 'none';
+                    }
+                }, 400);
+
+                if (landingImage) {
+                    landingImage.style.opacity = '1';
+                }
+            }, 150); 
+        });
 
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
-                clearTimeout(logoTimeout);
+                clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
                 const logoFile = this.getAttribute('data-logo');
@@ -340,11 +380,12 @@
             });
             
             link.addEventListener('mouseleave', function() {
-                hoverTitleDisplay.textContent = '';
-                
-                logoTimeout = setTimeout(() => {
-                    mainLogo.src = defaultLogoSrc;
-                }, 100); 
+                numberHoverTimeout = setTimeout(() => {
+                    if (catalogueContent.style.opacity === '1') {
+                        hoverTitleDisplay.textContent = '';
+                        mainLogo.src = defaultLogoSrc;
+                    }
+                }, 300); 
             });
         });
     </script>
