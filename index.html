@@ -40,8 +40,10 @@
             width: auto; 
             max-width: none; 
             display: block;
+            transition: all 0.2s ease;
         }
 
+        /* The new "Hover Zone" for the menu */
         .description {
             font-family: 'Mono', monospace;
             font-size: 12px;
@@ -49,8 +51,9 @@
             line-height: 1.6;
             text-align: left;
             display: flex;
-            gap: 40px; /* Matched distance between [CATALOGUE] and numbers */
+            gap: 40px; 
             align-items: flex-start;
+            padding-bottom: 20px; /* Gives a little extra safe space for the mouse */
         }
 
         .press-link {
@@ -69,11 +72,11 @@
         .catalogue-container {
             display: none; 
             opacity: 0;
-            transition: opacity 0.5s ease-in;
+            transition: opacity 0.4s ease-in-out;
             font-family: 'Mono', monospace;
             font-size: 12px;
             line-height: 1.6;
-            gap: 40px; /* Matched distance between numbers and titles */
+            gap: 40px; 
             align-items: flex-start; 
         }
 
@@ -108,7 +111,7 @@
             margin-top: 120px;
             transform-origin: top center;
             animation: swing 3.5s ease-in-out infinite alternate;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.5s ease-in-out;
         }
 
         @keyframes swing {
@@ -117,40 +120,12 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 20px;
-                height: auto;
-                overflow-y: auto;
-            }
-
-            .header-group {
-                position: static;
-                width: 100%;
-                margin-bottom: 40px;
-            }
-
-            .logo {
-                height: 40px; 
-                width: auto;
-                max-width: 100%;
-            }
-
-            .description {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .catalogue-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .center-image {
-                max-width: 80%;
-                margin-top: 20px;
-            }
+            body { flex-direction: column; justify-content: flex-start; padding: 20px; height: auto; overflow-y: auto; }
+            .header-group { position: static; width: 100%; margin-bottom: 40px; }
+            .logo { height: 40px; width: auto; max-width: 100%; }
+            .description { flex-direction: column; gap: 10px; padding-bottom: 0; }
+            .catalogue-container { flex-direction: column; gap: 20px; }
+            .center-image { max-width: 80%; margin-top: 20px; }
         }
     </style>
 </head>
@@ -158,8 +133,10 @@
 
     <div class="header-group">
         <img src="pp-logo-01-02.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
-        <div class="description">
-            <a id="catalogue-trigger" class="press-link">[CATALOGUE]</a>
+        
+        <!-- Added id="menu-area" to act as our hover zone -->
+        <div class="description" id="menu-area">
+            <a href="#" class="press-link" id="catalogue-trigger">[CATALOGUE]</a>
             
             <div id="catalogue-content" class="catalogue-container">
                 <div class="numbers-grid">
@@ -179,7 +156,7 @@
     <img src="start-img.png" alt="Dangling Illustration" id="landing-image" class="center-image">
 
     <script>
-        const catalogueTrigger = document.getElementById('catalogue-trigger');
+        const menuArea = document.getElementById('menu-area');
         const catalogueContent = document.getElementById('catalogue-content');
         const landingImage = document.getElementById('landing-image');
         const hoverTitleDisplay = document.getElementById('hover-title');
@@ -188,28 +165,53 @@
         const mainLogo = document.getElementById('main-logo');
         const defaultLogoSrc = mainLogo.getAttribute('src');
         
-        let logoTimeout;
+        let numberHoverTimeout;
+        let menuCloseTimeout;
 
-        if (catalogueTrigger) {
-            catalogueTrigger.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                
+        // 1. Hover INTO the menu area
+        menuArea.addEventListener('mouseenter', () => {
+            clearTimeout(menuCloseTimeout); // Cancel closing if we re-enter quickly
+            
+            // Fade out the landing image
+            if (landingImage) {
                 landingImage.style.opacity = '0';
-                
-                setTimeout(() => {
-                    landingImage.style.display = 'none';
-                    
-                    catalogueContent.style.display = 'flex';
-                    requestAnimationFrame(() => {
-                        catalogueContent.style.opacity = '1';
-                    });
-                }, 500); 
+            }
+            
+            // Show the catalogue
+            catalogueContent.style.display = 'flex';
+            requestAnimationFrame(() => {
+                catalogueContent.style.opacity = '1';
             });
-        }
+        });
 
+        // 2. Hover OUT OF the menu area
+        menuArea.addEventListener('mouseleave', () => {
+            // Slight delay so it doesn't snap shut immediately if the mouse slips
+            menuCloseTimeout = setTimeout(() => {
+                catalogueContent.style.opacity = '0';
+                
+                // Clear the text and revert the logo immediately
+                hoverTitleDisplay.textContent = '';
+                mainLogo.src = defaultLogoSrc;
+
+                // Wait for the CSS fade-out to finish, then hide the container
+                setTimeout(() => {
+                    if (catalogueContent.style.opacity === '0') {
+                        catalogueContent.style.display = 'none';
+                    }
+                }, 400);
+
+                // Fade the landing image back in
+                if (landingImage) {
+                    landingImage.style.opacity = '1';
+                }
+            }, 150); 
+        });
+
+        // 3. Hovering the individual numbers
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
-                clearTimeout(logoTimeout);
+                clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
                 const logoFile = this.getAttribute('data-logo');
@@ -219,11 +221,14 @@
             });
             
             link.addEventListener('mouseleave', function() {
-                hoverTitleDisplay.textContent = '';
-                
-                logoTimeout = setTimeout(() => {
-                    mainLogo.src = defaultLogoSrc;
-                }, 100); 
+                numberHoverTimeout = setTimeout(() => {
+                    // Only clear the text if the menu is still open 
+                    // (the menuArea leave event handles the full wipe)
+                    if (catalogueContent.style.opacity === '1') {
+                        hoverTitleDisplay.textContent = '';
+                        mainLogo.src = defaultLogoSrc;
+                    }
+                }, 300); 
             });
         });
     </script>
