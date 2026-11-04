@@ -30,12 +30,13 @@
             left: 20px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 20px; 
             z-index: 10;
+            align-items: flex-start; 
         }
 
         .logo {
-            height: 75px; 
+            height: 60px; 
             width: auto; 
             max-width: none; 
             display: block;
@@ -73,6 +74,7 @@
             font-size: 12px;
             line-height: 1.6;
             gap: 40px;
+            align-items: flex-start; 
         }
 
         .numbers-grid {
@@ -95,6 +97,8 @@
             white-space: pre-line;
             min-width: 300px;
             text-transform: uppercase;
+            min-height: 60px; 
+            margin-top: 0;
         }
 
         .center-image {
@@ -128,7 +132,7 @@
             }
 
             .logo {
-                height: 45px; 
+                height: 40px; 
                 width: auto;
                 max-width: 100%;
             }
@@ -181,7 +185,6 @@
         const hoverTitleDisplay = document.getElementById('hover-title');
         const catNumbers = document.querySelectorAll('.cat-number');
         
-        // Grab the main logo and its default source
         const mainLogo = document.getElementById('main-logo');
         const defaultLogoSrc = mainLogo.getAttribute('src');
 
@@ -202,9 +205,7 @@
 
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
-                // Show title
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
-                // Swap logo
                 const logoFile = this.getAttribute('data-logo');
                 if (logoFile) {
                     mainLogo.src = logoFile;
@@ -212,9 +213,7 @@
             });
             
             link.addEventListener('mouseleave', function() {
-                // Clear title
                 hoverTitleDisplay.textContent = '';
-                // Revert logo back to default for this page
                 mainLogo.src = defaultLogoSrc;
             });
         });
