@@ -35,6 +35,13 @@
             align-items: flex-start; 
         }
 
+        /* Added to keep the wrapped link clean */
+        .logo-link {
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         .logo {
             height: 60px; 
             width: auto; 
@@ -43,7 +50,6 @@
             transition: all 0.2s ease;
         }
 
-        /* The new "Hover Zone" for the menu */
         .description {
             font-family: 'Mono', monospace;
             font-size: 12px;
@@ -53,7 +59,7 @@
             display: flex;
             gap: 40px; 
             align-items: flex-start;
-            padding-bottom: 20px; /* Gives a little extra safe space for the mouse */
+            padding-bottom: 20px; 
         }
 
         .press-link {
@@ -132,9 +138,11 @@
 <body>
 
     <div class="header-group">
-        <img src="pp-logo-01-02.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
+        <!-- Logo is now wrapped in an active link back to home -->
+        <a href="index.html" class="logo-link">
+            <img src="pp-logo-01-02.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
+        </a>
         
-        <!-- Added id="menu-area" to act as our hover zone -->
         <div class="description" id="menu-area">
             <a href="#" class="press-link" id="catalogue-trigger">[CATALOGUE]</a>
             
@@ -168,47 +176,38 @@
         let numberHoverTimeout;
         let menuCloseTimeout;
 
-        // 1. Hover INTO the menu area
         menuArea.addEventListener('mouseenter', () => {
-            clearTimeout(menuCloseTimeout); // Cancel closing if we re-enter quickly
+            clearTimeout(menuCloseTimeout); 
             
-            // Fade out the landing image
             if (landingImage) {
                 landingImage.style.opacity = '0';
             }
             
-            // Show the catalogue
             catalogueContent.style.display = 'flex';
             requestAnimationFrame(() => {
                 catalogueContent.style.opacity = '1';
             });
         });
 
-        // 2. Hover OUT OF the menu area
         menuArea.addEventListener('mouseleave', () => {
-            // Slight delay so it doesn't snap shut immediately if the mouse slips
             menuCloseTimeout = setTimeout(() => {
                 catalogueContent.style.opacity = '0';
                 
-                // Clear the text and revert the logo immediately
                 hoverTitleDisplay.textContent = '';
                 mainLogo.src = defaultLogoSrc;
 
-                // Wait for the CSS fade-out to finish, then hide the container
                 setTimeout(() => {
                     if (catalogueContent.style.opacity === '0') {
                         catalogueContent.style.display = 'none';
                     }
                 }, 400);
 
-                // Fade the landing image back in
                 if (landingImage) {
                     landingImage.style.opacity = '1';
                 }
             }, 150); 
         });
 
-        // 3. Hovering the individual numbers
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
                 clearTimeout(numberHoverTimeout);
@@ -222,8 +221,6 @@
             
             link.addEventListener('mouseleave', function() {
                 numberHoverTimeout = setTimeout(() => {
-                    // Only clear the text if the menu is still open 
-                    // (the menuArea leave event handles the full wipe)
                     if (catalogueContent.style.opacity === '1') {
                         hoverTitleDisplay.textContent = '';
                         mainLogo.src = defaultLogoSrc;
