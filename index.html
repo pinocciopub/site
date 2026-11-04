@@ -49,7 +49,7 @@
             line-height: 1.6;
             text-align: left;
             display: flex;
-            gap: 20px;
+            gap: 40px; /* Matched distance between [CATALOGUE] and numbers */
             align-items: flex-start;
         }
 
@@ -73,7 +73,7 @@
             font-family: 'Mono', monospace;
             font-size: 12px;
             line-height: 1.6;
-            gap: 40px;
+            gap: 40px; /* Matched distance between numbers and titles */
             align-items: flex-start; 
         }
 
@@ -163,13 +163,13 @@
             
             <div id="catalogue-content" class="catalogue-container">
                 <div class="numbers-grid">
-                    <a href="001-apokryferna.html" class="cat-number" data-title="AP0KRYFERNA / NATTBOK (2016)&#10;ALEXANDER SAND&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
-                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ETT MISSLYCKAT HJÄRTA (2019)&#10;ALEXANDER SAND&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
-                    <a href="003-sokaren.html" class="cat-number" data-title="SÖKAREN (2024)&#10;ALEX SAND&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
-                    <a href="004-paraply.html" class="cat-number" data-title="PARAPLY (2025)&#10;ALEXANDER SAND&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
-                    <a href="005-kalla-vindar.html" class="cat-number" data-title="KALLA VINDAR (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
-                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="LYFTER (2026)&#10;SKAMMEN&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
-                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MITT I NATUREN (2026)&#10;MOE&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
+                    <a href="001-apokryferna.html" class="cat-number" data-title="ALEXANDER SAND&#10;AP0KRYFERNA / NATTBOK (2016)&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
+                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ALEXANDER SAND&#10;ETT MISSLYCKAT HJÄRTA (2019)&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
+                    <a href="003-sokaren.html" class="cat-number" data-title="ALEX SAND&#10;SÖKAREN (2024)&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
+                    <a href="004-paraply.html" class="cat-number" data-title="ALEXANDER SAND&#10;PARAPLY (2025)&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
+                    <a href="005-kalla-vindar.html" class="cat-number" data-title="SKAMMEN&#10;KALLA VINDAR (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
+                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
+                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
                 </div>
                 <div id="hover-title" class="title-display"></div>
             </div>
@@ -178,7 +178,7 @@
 
     <img src="start-img.png" alt="Dangling Illustration" id="landing-image" class="center-image">
 
-<script>
+    <script>
         const catalogueTrigger = document.getElementById('catalogue-trigger');
         const catalogueContent = document.getElementById('catalogue-content');
         const landingImage = document.getElementById('landing-image');
@@ -188,9 +188,8 @@
         const mainLogo = document.getElementById('main-logo');
         const defaultLogoSrc = mainLogo.getAttribute('src');
         
-        let logoTimeout; // Variable to store our delay timer
+        let logoTimeout;
 
-        // Only exists on the index page, so we check if it's there
         if (catalogueTrigger) {
             catalogueTrigger.addEventListener('click', (e) => {
                 e.preventDefault(); 
@@ -210,7 +209,6 @@
 
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
-                // Cancel the revert if we hover over a new number quickly
                 clearTimeout(logoTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
@@ -221,10 +219,8 @@
             });
             
             link.addEventListener('mouseleave', function() {
-                // Clear the text instantly
                 hoverTitleDisplay.textContent = '';
                 
-                // Wait 100ms before reverting the logo
                 logoTimeout = setTimeout(() => {
                     mainLogo.src = defaultLogoSrc;
                 }, 100); 
