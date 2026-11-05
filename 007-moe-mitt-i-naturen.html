@@ -16,8 +16,7 @@
         body {
             margin: 0;
             padding: 0;
-            /* Updated background gif */
-            background-image: url('mitt-i-naturen-bg-2.gif');
+            background-image: url('mitt-i-naturen-bg.gif');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -154,7 +153,6 @@
             width: 100%;
         }
 
-        /* Made artist logo half the size */
         .artist-logo {
             width: 100%;
             max-width: 200px;
@@ -199,6 +197,14 @@
             margin: 0;
             text-align: left;
             width: 100%;
+        }
+
+        .sc-player {
+            margin-top: 40px; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .image-gallery {
@@ -281,7 +287,6 @@
             .title-display { transform: translateY(0) !important; min-height: auto; }
             .content-container { margin-top: 0; width: 100%; }
             .logo-row { justify-content: flex-start; gap: 10px; }
-            /* Mobile artist logo cut to 100px */
             .artist-logo { max-width: 100px; }
             .insta-link, .disabled-link { font-size: 11px; }
             p { font-size: 13px; line-height: 1.6; }
@@ -335,7 +340,15 @@
         <p>Press-kontakt: Alexander Sand <br>
           <a href="mailto:info@pinocciopub.com" class="email-link">✉ info@pinocciopub.com</a> 📞 +31 6 43734683 </p>
 
-        <!-- Gallery with Correct Casing -->
+        <!-- Both players added in minimal blue style -->
+        <div class="sc-player">
+            <!-- Player 1: Kärlekssång -->
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2432559315&color=%230000ff&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+            
+            <!-- Player 2: Galen med göken -->
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/pinoccio-pub/galen-med-goken&color=%230000ff&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        </div>
+
         <div class="image-gallery">
             <div class="gallery-item">
                 <a href="Moe-press-01.jpg" download="Moe-press-01.jpg" class="download-wrapper">
@@ -370,7 +383,6 @@
         <br><br>
     </div>
 
-    <!-- Complete JavaScript Logic -->
     <script>
         const menuArea = document.getElementById('menu-area');
         const catalogueContent = document.getElementById('catalogue-content');
