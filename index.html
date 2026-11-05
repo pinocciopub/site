@@ -53,13 +53,12 @@
             font-family: 'Mono', monospace;
             font-size: 12px;
             color: #000000;
-            line-height: 1.6;
             text-align: left;
             display: flex;
             gap: 40px; 
             align-items: flex-start;
             padding-bottom: 20px; 
-            padding-right: 20px; /* Expands the active hover field to the right */
+            padding-right: 20px; 
         }
 
         .press-link {
@@ -68,6 +67,7 @@
             text-decoration: none;
             font-family: 'Mono', monospace;
             font-size: 12px;
+            line-height: 1; /* Locked to 1 for perfect top alignment */
             cursor: pointer;
         }
 
@@ -81,7 +81,6 @@
             transition: opacity 0.4s ease-in-out;
             font-family: 'Mono', monospace;
             font-size: 12px;
-            line-height: 1.6;
             gap: 40px; 
             align-items: flex-start; 
             position: relative; 
@@ -90,17 +89,19 @@
         .numbers-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px; 
+            gap: 12px; /* Decreased space between numbers */
         }
 
         .cat-number {
             color: #000;
             text-decoration: none;
             cursor: pointer;
-            line-height: 1; 
+            line-height: 1; /* Locked to 1 for perfect top alignment */
+            transition: color 0.15s ease;
         }
 
         .cat-number:hover {
+            color: #0000FF; /* Turns blue on hover */
             text-decoration: underline;
         }
 
@@ -110,7 +111,8 @@
             text-transform: uppercase;
             min-height: 60px; 
             margin-top: 0;
-            opacity: 0; /* Starts hidden for the fade effect */
+            line-height: 1.6;
+            opacity: 0; 
             transition: transform 0.15s ease-out, opacity 0.2s ease-in-out; 
         }
 
@@ -219,8 +221,9 @@
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
-                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop}px)`;
-                hoverTitleDisplay.style.opacity = '1'; // Fade text in
+                // Adjust by slightly shifting up visually due to line-height matching
+                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
+                hoverTitleDisplay.style.opacity = '1'; 
                 
                 const logoFile = this.getAttribute('data-logo');
                 if (logoFile) {
@@ -229,12 +232,12 @@
             });
             
             link.addEventListener('mouseleave', function() {
+                // Increased to 600ms to guarantee no flicker while navigating the tighter list
                 numberHoverTimeout = setTimeout(() => {
                     if (catalogueContent.style.opacity === '1') {
-                        hoverTitleDisplay.style.opacity = '0'; // Fade text out cleanly
+                        hoverTitleDisplay.style.opacity = '0'; 
                         mainLogo.src = defaultLogoSrc;
                         
-                        // Clear the text only after it has finished fading out
                         setTimeout(() => {
                             if (hoverTitleDisplay.style.opacity === '0') {
                                 hoverTitleDisplay.textContent = '';
@@ -242,7 +245,7 @@
                             }
                         }, 200);
                     }
-                }, 300); 
+                }, 600); 
             });
         });
     </script>
