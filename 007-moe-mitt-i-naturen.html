@@ -16,7 +16,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('https://i.pinimg.com/originals/2c/ac/d1/2cacd1d21f700e15b8f1e9baecb7ae02.gif');
+            /* Updated background gif */
+            background-image: url('mitt-i-naturen-bg.gif');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -153,9 +154,10 @@
             width: 100%;
         }
 
+        /* Made artist logo half the size */
         .artist-logo {
             width: 100%;
-            max-width: 400px;
+            max-width: 200px;
             height: auto;
             display: block;
         }
@@ -279,7 +281,8 @@
             .title-display { transform: translateY(0) !important; min-height: auto; }
             .content-container { margin-top: 0; width: 100%; }
             .logo-row { justify-content: flex-start; gap: 10px; }
-            .artist-logo { max-width: 200px; }
+            /* Mobile artist logo cut to 100px */
+            .artist-logo { max-width: 100px; }
             .insta-link, .disabled-link { font-size: 11px; }
             p { font-size: 13px; line-height: 1.6; }
             .image-gallery { flex-direction: column; gap: 40px; }
@@ -332,10 +335,11 @@
         <p>Press-kontakt: Alexander Sand <br>
           <a href="mailto:info@pinocciopub.com" class="email-link">✉ info@pinocciopub.com</a> 📞 +31 6 43734683 </p>
 
+        <!-- Gallery with Correct Casing -->
         <div class="image-gallery">
             <div class="gallery-item">
-                <a href="moe-press-01.jpg" download="moe-press-01.jpg" class="download-wrapper">
-                    <img src="moe-press-01.jpg" alt="Moe Press Image 1" class="gallery-img">
+                <a href="Moe-press-01.jpg" download="Moe-press-01.jpg" class="download-wrapper">
+                    <img src="Moe-press-01.jpg" alt="Moe Press Image 1" class="gallery-img">
                     <div class="download-overlay">
                         <span class="download-icon">⬇</span>
                     </div>
@@ -344,8 +348,8 @@
             </div>
 
             <div class="gallery-item">
-                <a href="moe-press-03.jpg" download="moe-press-03.jpg" class="download-wrapper">
-                    <img src="moe-press-03.jpg" alt="Moe Press Image 2" class="gallery-img">
+                <a href="Moe-press-03.jpg" download="Moe-press-03.jpg" class="download-wrapper">
+                    <img src="Moe-press-03.jpg" alt="Moe Press Image 2" class="gallery-img">
                     <div class="download-overlay">
                         <span class="download-icon">⬇</span>
                     </div>
@@ -354,8 +358,8 @@
             </div>
 
             <div class="gallery-item">
-                <a href="mitt-i-naturen-cover.jpg" download="mitt-i-naturen-cover.jpg" class="download-wrapper">
-                    <img src="mitt-i-naturen-cover.jpg" alt="Mitt i naturen Cover" class="gallery-img">
+                <a href="mitt-i-naturen-cover.JPG" download="mitt-i-naturen-cover.JPG" class="download-wrapper">
+                    <img src="mitt-i-naturen-cover.JPG" alt="Mitt i naturen Cover" class="gallery-img">
                     <div class="download-overlay">
                         <span class="download-icon">⬇</span>
                     </div>
@@ -366,6 +370,7 @@
         <br><br>
     </div>
 
+    <!-- Complete JavaScript Logic -->
     <script>
         const menuArea = document.getElementById('menu-area');
         const catalogueContent = document.getElementById('catalogue-content');
