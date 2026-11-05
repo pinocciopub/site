@@ -35,7 +35,6 @@
             align-items: flex-start; 
         }
 
-        /* Added to keep the wrapped link clean */
         .logo-link {
             display: block;
             text-decoration: none;
@@ -60,6 +59,7 @@
             gap: 40px; 
             align-items: flex-start;
             padding-bottom: 20px; 
+            padding-right: 20px; /* Expands the active hover field to the right */
         }
 
         .press-link {
@@ -84,18 +84,20 @@
             line-height: 1.6;
             gap: 40px; 
             align-items: flex-start; 
+            position: relative; 
         }
 
         .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(4, auto);
-            gap: 5px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
         }
 
         .cat-number {
             color: #000;
             text-decoration: none;
             cursor: pointer;
+            line-height: 1; 
         }
 
         .cat-number:hover {
@@ -108,6 +110,8 @@
             text-transform: uppercase;
             min-height: 60px; 
             margin-top: 0;
+            opacity: 0; /* Starts hidden for the fade effect */
+            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out; 
         }
 
         .center-image {
@@ -129,8 +133,9 @@
             body { flex-direction: column; justify-content: flex-start; padding: 20px; height: auto; overflow-y: auto; }
             .header-group { position: static; width: 100%; margin-bottom: 40px; }
             .logo { height: 40px; width: auto; max-width: 100%; }
-            .description { flex-direction: column; gap: 10px; padding-bottom: 0; }
+            .description { flex-direction: column; gap: 10px; padding-bottom: 0; padding-right: 0; }
             .catalogue-container { flex-direction: column; gap: 20px; }
+            .title-display { transform: translateY(0) !important; min-height: auto; } 
             .center-image { max-width: 80%; margin-top: 20px; }
         }
     </style>
@@ -138,7 +143,6 @@
 <body>
 
     <div class="header-group">
-        <!-- Logo is now wrapped in an active link back to home -->
         <a href="index.html" class="logo-link">
             <img src="pp-logo-01-02.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
         </a>
@@ -193,12 +197,14 @@
             menuCloseTimeout = setTimeout(() => {
                 catalogueContent.style.opacity = '0';
                 
-                hoverTitleDisplay.textContent = '';
+                hoverTitleDisplay.style.opacity = '0';
                 mainLogo.src = defaultLogoSrc;
 
                 setTimeout(() => {
                     if (catalogueContent.style.opacity === '0') {
                         catalogueContent.style.display = 'none';
+                        hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.style.transform = `translateY(0px)`;
                     }
                 }, 400);
 
@@ -213,6 +219,9 @@
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop}px)`;
+                hoverTitleDisplay.style.opacity = '1'; // Fade text in
+                
                 const logoFile = this.getAttribute('data-logo');
                 if (logoFile) {
                     mainLogo.src = logoFile;
@@ -222,8 +231,16 @@
             link.addEventListener('mouseleave', function() {
                 numberHoverTimeout = setTimeout(() => {
                     if (catalogueContent.style.opacity === '1') {
-                        hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.style.opacity = '0'; // Fade text out cleanly
                         mainLogo.src = defaultLogoSrc;
+                        
+                        // Clear the text only after it has finished fading out
+                        setTimeout(() => {
+                            if (hoverTitleDisplay.style.opacity === '0') {
+                                hoverTitleDisplay.textContent = '';
+                                hoverTitleDisplay.style.transform = `translateY(0px)`;
+                            }
+                        }, 200);
                     }
                 }, 300); 
             });
