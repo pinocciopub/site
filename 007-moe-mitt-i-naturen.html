@@ -1,1 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinoccio Pub | MOE</title>
+    <link class="favicon" rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        @font-face {
+            font-family: 'Mono';
+            src: url('CommitMono-400-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
 
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.pinimg.com/originals/2c/ac/d1/2cacd1d21f700e15b8f1e9baecb7ae02.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .header-group {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+            z-index: 10;
+            align-items: flex-start; 
+        }
+
+        .logo-link {
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo {
+            height: 60px; 
+            width: auto;
+            max-width: none;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .description {
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            color: #000000;
+            text-align: left;
+            display: flex;
+            gap: 40px; 
+            align-items: flex-start;
+            padding-bottom: 20px; 
+            padding-right: 20px; 
+        }
+
+        .catalogue-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            gap: 40px; 
+            align-items: flex-start; 
+            position: relative;
+        }
+
+        .numbers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cat-number {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: color 0.15s ease, opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .cat-number:hover {
+            color: #0000FF; 
+            text-decoration: underline;
+        }
+
+        .cat-number.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .title-display {
+            white-space: pre-line;
+            min-width: 300px;
+            text-transform: uppercase;
+            min-height: 60px; 
+            margin-top: 0;
+            line-height: 1.6;
+            opacity: 0;
+            color: #000;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out, color 0.15s ease;
+        }
+
+        .title-display:hover {
+            color: #0000FF;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: #0000FF; 
+            text-decoration: none; 
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .content-container {
+            max-width: 660px;
+            width: 90%;
+            margin-top: 220px; 
+            margin-bottom: 100px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .artist-logo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+        }
+
+        .insta-link {
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            color: #0000FF; 
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .insta-link:hover {
+            text-decoration: underline;
+        }
+
+        .disabled-link {
+            font-family: 'Mono', monospace;
+            font-size: 12px;
+            color: #999999;
+            text-decoration: none;
+            white-space: nowrap;
+            cursor: default;
+        }
+
+        .centered-logo {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 20px auto 40px auto;
+            display: block;
+        }
+
+        p {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.7; 
+            margin: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 20px;
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .download-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            display: block;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: relative;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-icon {
+            font-size: 32px;
+            color: #000000;
+            font-family: sans-serif;
+            pointer-events: none;
+        }
+
+        .download-wrapper:hover .gallery-img {
+            opacity: 0.8;
+        }
+
+        .download-wrapper:hover .download-overlay {
+            opacity: 1;
+        }
+
+        .image-caption {
+            font-family: 'Mono', monospace;
+            font-size: 11px;
+            color: #000000;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .header-group { position: static; width: 100%; margin-bottom: 40px; }
+            .logo { height: 40px; width: auto; max-width: 100%; }
+            .description { flex-direction: column; gap: 10px; padding-bottom: 0; padding-right: 0;}
+            .catalogue-container { flex-direction: column; gap: 20px; }
+            .title-display { transform: translateY(0) !important; min-height: auto; }
+            .content-container { margin-top: 0; width: 100%; }
+            .logo-row { justify-content: flex-start; gap: 10px; }
+            .artist-logo { max-width: 200px; }
+            .insta-link, .disabled-link { font-size: 11px; }
+            p { font-size: 13px; line-height: 1.6; }
+            .image-gallery { flex-direction: column; gap: 40px; }
+            .cat-number { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-group">
+        <a href="index.html" class="logo-link">
+            <!-- Updated to default to the 07 logo for this page -->
+            <img src="pp-logo-07.svg" alt="Pinoccio Logo" class="logo" id="main-logo">
+        </a>
+        
+        <div class="description" id="menu-area">
+            <a href="index.html" class="nav-link" id="catalogue-trigger">[CATALOGUE]</a>
+            
+            <div id="catalogue-content" class="catalogue-container">
+                <div class="numbers-grid">
+                    <a href="001-apokryferna.html" class="cat-number" data-title="ALEXANDER SAND&#10;AP0KRYFERNA / NATTBOK (2016)&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
+                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ALEXANDER SAND&#10;ETT MISSLYCKAT HJÄRTA (2019)&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
+                    <a href="003-sokaren.html" class="cat-number" data-title="ALEX SAND&#10;SÖKAREN (2024)&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
+                    <a href="004-paraply.html" class="cat-number" data-title="ALEXANDER SAND&#10;PARAPLY (2025)&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
+                    <a href="005-kalla-vindar.html" class="cat-number" data-title="SKAMMEN&#10;KALLA VINDAR (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
+                    <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
+                    <a href="007-moe-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
+                </div>
+                <a id="hover-title" class="title-display"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="logo-row">
+            <img src="moe-logo.png" alt="Moe Logo" class="artist-logo">
+            <span class="disabled-link">[SOON ON SPOTIFY]</span>
+        </div>
+
+        <img src="mitt-i-naturen-logo.png" alt="Mitt i naturen Logo" class="centered-logo">
+        
+        <p>”Mitt i naturen” (digitalt släppt fredag 13 november) är den första av två nya EP:s från Moe. Den andra, engelskspråkiga ”I Am Nature”, släpps våren 2027 och tillsammans bildar de A- och B-sidan på hens andra album och första fysiska LP-släpp.</p>
+        <br>
+        <p>Som de båda EP-titlarna antyder rör sig Moe nu bort från debutalbumets självbiografiska tema (den tiospåriga berättelsen ”HEN” om att komma ut som icke-binär i en tudelad och oförstående värld) och in i det självbiologiska. Här får jaget för en stund stiga undan och göra plats för det icke-mänskliga, men fullt så levande och sprudlande. Som i öppningsspåret ”Rötter” där en rot tar ton och undrar: ”Finns det någon där som möter mig, nere i smutsen?”, följt av den centrala frågan som hänger över alla fem spår: ”Var börjar jag och var slutar vi?”</p>
+        <br>
+        <p>”Mitt i naturen” är något så ovanligt som en sovrumsproducerad progg-disco-fabel, som spretar underbart åt alla håll. På det andra spåret, ”Älgen”, gästas Moe av Mats Wikström (Eterkropp), som bidrar med hjärtskärande versrader och sång. EP:n avrundas med det ”Tout petit la planète”-liknande spåret ”Ett litet klot”, där vi tycks lämna vår grönblå planet för att svävandes i rymden blicka ner på den, allt medan Moe mässar: ”Ett litet klot som snurrar runt, där pratar vi strunt, där pratar vi strunt.”</p>
+        <br>
+        <p>Och må så vara. Men Moes ”Mitt i naturen” är ett befriande och vackert avbrott i allt detta struntprat. EPn kommer att finnas tillgänglig på alla digitala plattformar den 13 november.</p>
+        <br>
+        <a href="https://www.instagram.com/it.is.me.moe/" target="_blank" class="insta-link">INSTAGRAM</a> <br>
+        <p>Press-kontakt: Alexander Sand <br>
+          <a href="mailto:info@pinocciopub.com" class="email-link">✉ info@pinocciopub.com</a> 📞 +31 6 43734683 </p>
+
+        <!-- 3-Image Gallery Layout -->
+        <div class="image-gallery">
+            <div class="gallery-item">
+                <a href="moe-press-01.jpg" download="moe-press-01.jpg" class="download-wrapper">
+                    <img src="moe-press-01.jpg" alt="Moe Press Image 1" class="gallery-img">
+                    <div class="download-overlay">
+                        <span class="download-icon">⬇</span>
+                    </div>
+                </a>
+                <span class="image-caption">[Foto: Victor Cornelius]</span>
+            </div>
+
+            <div class="gallery-item">
+                <a href="moe-press-03.jpg" download="moe-press-03.jpg" class="download-wrapper">
+                    <img src="moe-press-03.jpg" alt="Moe Press Image 2" class="gallery-img">
+                    <div class="download-overlay">
+                        <span class="download-icon">⬇</span>
+                    </div>
+                </a>
+                <span class="image-caption">[Foto: Victor Cornelius]</span>
+            </div>
+
+            <div class="gallery-item">
+                <a href="mitt-i-naturen-cover.jpg" download="mitt-i-naturen-cover.jpg" class="download-wrapper">
+                    <img src="mitt-i-naturen-cover.jpg" alt="Mitt i naturen Cover" class="gallery-img">
+                    <div class="download-overlay">
+                        <span class="download-icon">⬇</span>
+                    </div>
+                </a>
+                <span class="image-caption">[Omslag]</span>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+    <script>
+        const menuArea = document.getElementById('menu-area');
+        const catalogueContent = document.getElementById('catalogue-content');
+        const landingImage = document.getElementById('landing-image');
+        const hoverTitleDisplay = document.getElementById('hover-title');
+        const catNumbers = document.querySelectorAll('.cat-number');
+        
+        const mainLogo = document.getElementById('main-logo');
+        const defaultLogoSrc = mainLogo.getAttribute('src');
+        
+        let numberHoverTimeout;
+        let menuCloseTimeout;
+
+        menuArea.addEventListener('mouseenter', () => {
+            clearTimeout(menuCloseTimeout); 
+            
+            if (landingImage) {
+                landingImage.style.opacity = '0';
+            }
+            
+            catalogueContent.style.display = 'flex';
+            setTimeout(() => {
+                catalogueContent.style.opacity = '1';
+                
+                catNumbers.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.classList.add('show');
+                    }, index * 50); 
+                });
+            }, 50);
+        });
+
+        menuArea.addEventListener('mouseleave', () => {
+            menuCloseTimeout = setTimeout(() => {
+                catalogueContent.style.opacity = '0';
+                mainLogo.src = defaultLogoSrc;
+                
+                setTimeout(() => {
+                    if (catalogueContent.style.opacity === '0') {
+                        catalogueContent.style.display = 'none';
+                        catNumbers.forEach(link => link.classList.remove('show'));
+                        hoverTitleDisplay.style.opacity = '0';
+                        hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.removeAttribute('href');
+                        hoverTitleDisplay.style.transform = `translateY(0px)`;
+                    }
+                }, 300);
+
+                if (landingImage) {
+                    landingImage.style.opacity = '1';
+                }
+            }, 150); 
+        });
+
+        function startNumberLeaveTimer() {
+            numberHoverTimeout = setTimeout(() => {
+                if (catalogueContent.style.opacity === '1') {
+                    hoverTitleDisplay.style.opacity = '0';
+                    mainLogo.src = defaultLogoSrc;
+                    
+                    setTimeout(() => {
+                        if (hoverTitleDisplay.style.opacity === '0') {
+                            hoverTitleDisplay.textContent = '';
+                            hoverTitleDisplay.removeAttribute('href');
+                            hoverTitleDisplay.style.transform = `translateY(0px)`;
+                        }
+                    }, 200);
+                }
+            }, 600); 
+        }
+
+        catNumbers.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                clearTimeout(numberHoverTimeout);
+                
+                hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                hoverTitleDisplay.href = this.href;
+                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
+                hoverTitleDisplay.style.opacity = '1';
+                
+                const logoFile = this.getAttribute('data-logo');
+                if (logoFile) {
+                    mainLogo.src = logoFile;
+                }
+            });
+            
+            link.addEventListener('mouseleave', startNumberLeaveTimer);
+        });
+
+        hoverTitleDisplay.addEventListener('mouseenter', () => {
+            clearTimeout(numberHoverTimeout);
+        });
+        
+        hoverTitleDisplay.addEventListener('mouseleave', startNumberLeaveTimer);
+
+    </script>
+</body>
+</html>
