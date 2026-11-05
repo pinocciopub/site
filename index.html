@@ -107,12 +107,12 @@
             text-decoration: underline;
         }
 
-        /* Triggered by JS for the waterfall effect */
         .cat-number.show {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* 1. Updated title to function perfectly as an interactive link */
         .title-display {
             white-space: pre-line;
             min-width: 300px;
@@ -121,7 +121,16 @@
             margin-top: 0;
             line-height: 1.6;
             opacity: 0; 
-            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out; 
+            color: #000;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out, color 0.15s ease; 
+        }
+
+        .title-display:hover {
+            color: #0000FF;
+            text-decoration: underline;
+            cursor: pointer;
         }
 
         .center-image {
@@ -171,7 +180,8 @@
                     <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
                     <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
                 </div>
-                <div id="hover-title" class="title-display"></div>
+                <!-- Changed to an <a> tag so it can act as a link -->
+                <a id="hover-title" class="title-display"></a>
             </div>
         </div>
     </div>
@@ -199,11 +209,9 @@
             }
             
             catalogueContent.style.display = 'flex';
-            // Slight delay ensures the browser registers 'flex' before we start fading things in
             setTimeout(() => {
                 catalogueContent.style.opacity = '1';
                 
-                // JavaScript staggered entry (foolproof)
                 catNumbers.forEach((link, index) => {
                     setTimeout(() => {
                         link.classList.add('show');
@@ -214,17 +222,18 @@
 
         menuArea.addEventListener('mouseleave', () => {
             menuCloseTimeout = setTimeout(() => {
+                // Fading out the container fades everything uniformly
                 catalogueContent.style.opacity = '0';
-                hoverTitleDisplay.style.opacity = '0';
                 mainLogo.src = defaultLogoSrc;
                 
-                // Remove show class immediately on close
-                catNumbers.forEach(link => link.classList.remove('show'));
-
                 setTimeout(() => {
                     if (catalogueContent.style.opacity === '0') {
                         catalogueContent.style.display = 'none';
+                        // Reset properties only once completely hidden
+                        catNumbers.forEach(link => link.classList.remove('show'));
+                        hoverTitleDisplay.style.opacity = '0';
                         hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.removeAttribute('href');
                         hoverTitleDisplay.style.transform = `translateY(0px)`;
                     }
                 }, 300);
@@ -235,11 +244,30 @@
             }, 150); 
         });
 
+        // Extracted timer logic so both numbers and titles use it
+        function startNumberLeaveTimer() {
+            numberHoverTimeout = setTimeout(() => {
+                if (catalogueContent.style.opacity === '1') {
+                    hoverTitleDisplay.style.opacity = '0'; 
+                    mainLogo.src = defaultLogoSrc;
+                    
+                    setTimeout(() => {
+                        if (hoverTitleDisplay.style.opacity === '0') {
+                            hoverTitleDisplay.textContent = '';
+                            hoverTitleDisplay.removeAttribute('href');
+                            hoverTitleDisplay.style.transform = `translateY(0px)`;
+                        }
+                    }, 200);
+                }
+            }, 600); 
+        }
+
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                hoverTitleDisplay.href = this.href; // Dynamically sets the link
                 hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
                 hoverTitleDisplay.style.opacity = '1'; 
                 
@@ -249,22 +277,16 @@
                 }
             });
             
-            link.addEventListener('mouseleave', function() {
-                numberHoverTimeout = setTimeout(() => {
-                    if (catalogueContent.style.opacity === '1') {
-                        hoverTitleDisplay.style.opacity = '0'; 
-                        mainLogo.src = defaultLogoSrc;
-                        
-                        setTimeout(() => {
-                            if (hoverTitleDisplay.style.opacity === '0') {
-                                hoverTitleDisplay.textContent = '';
-                                hoverTitleDisplay.style.transform = `translateY(0px)`;
-                            }
-                        }, 200);
-                    }
-                }, 600); 
-            });
+            link.addEventListener('mouseleave', startNumberLeaveTimer);
         });
+
+        // 2. Added Safe-Zone logic for the title itself
+        hoverTitleDisplay.addEventListener('mouseenter', () => {
+            clearTimeout(numberHoverTimeout); // Keeps the 600ms window alive!
+        });
+        
+        hoverTitleDisplay.addEventListener('mouseleave', startNumberLeaveTimer);
+
     </script>
 </body>
 </html>
