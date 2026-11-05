@@ -110,7 +110,16 @@
             margin-top: 0;
             line-height: 1.6;
             opacity: 0;
-            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out;
+            color: #000;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out, color 0.15s ease;
+        }
+        
+        .title-display:hover {
+            color: #0000FF;
+            text-decoration: underline;
+            cursor: pointer;
         }
 
         .nav-link {
@@ -294,7 +303,7 @@
                     <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
                     <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
                 </div>
-                <div id="hover-title" class="title-display"></div>
+                <a id="hover-title" class="title-display"></a>
             </div>
         </div>
     </div>
@@ -380,15 +389,15 @@
         menuArea.addEventListener('mouseleave', () => {
             menuCloseTimeout = setTimeout(() => {
                 catalogueContent.style.opacity = '0';
-                hoverTitleDisplay.style.opacity = '0';
                 mainLogo.src = defaultLogoSrc;
                 
-                catNumbers.forEach(link => link.classList.remove('show'));
-
                 setTimeout(() => {
                     if (catalogueContent.style.opacity === '0') {
                         catalogueContent.style.display = 'none';
+                        catNumbers.forEach(link => link.classList.remove('show'));
+                        hoverTitleDisplay.style.opacity = '0';
                         hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.removeAttribute('href');
                         hoverTitleDisplay.style.transform = `translateY(0px)`;
                     }
                 }, 300);
@@ -399,11 +408,29 @@
             }, 150); 
         });
 
+        function startNumberLeaveTimer() {
+            numberHoverTimeout = setTimeout(() => {
+                if (catalogueContent.style.opacity === '1') {
+                    hoverTitleDisplay.style.opacity = '0';
+                    mainLogo.src = defaultLogoSrc;
+                    
+                    setTimeout(() => {
+                        if (hoverTitleDisplay.style.opacity === '0') {
+                            hoverTitleDisplay.textContent = '';
+                            hoverTitleDisplay.removeAttribute('href');
+                            hoverTitleDisplay.style.transform = `translateY(0px)`;
+                        }
+                    }, 200);
+                }
+            }, 600); 
+        }
+
         catNumbers.forEach(link => {
             link.addEventListener('mouseenter', function() {
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                hoverTitleDisplay.href = this.href;
                 hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
                 hoverTitleDisplay.style.opacity = '1';
                 
@@ -413,22 +440,15 @@
                 }
             });
             
-            link.addEventListener('mouseleave', function() {
-                numberHoverTimeout = setTimeout(() => {
-                    if (catalogueContent.style.opacity === '1') {
-                        hoverTitleDisplay.style.opacity = '0';
-                        mainLogo.src = defaultLogoSrc;
-                        
-                        setTimeout(() => {
-                            if (hoverTitleDisplay.style.opacity === '0') {
-                                hoverTitleDisplay.textContent = '';
-                                hoverTitleDisplay.style.transform = `translateY(0px)`;
-                            }
-                        }, 200);
-                    }
-                }, 600); 
-            });
+            link.addEventListener('mouseleave', startNumberLeaveTimer);
         });
+
+        hoverTitleDisplay.addEventListener('mouseenter', () => {
+            clearTimeout(numberHoverTimeout);
+        });
+        
+        hoverTitleDisplay.addEventListener('mouseleave', startNumberLeaveTimer);
+
     </script>
 </body>
 </html>
