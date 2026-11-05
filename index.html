@@ -78,7 +78,7 @@
         .catalogue-container {
             display: none; 
             opacity: 0;
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
             font-family: 'Mono', monospace;
             font-size: 12px;
             gap: 40px; 
@@ -92,7 +92,6 @@
             gap: 12px; 
         }
 
-        /* 1. Base state for numbers (hidden and shifted down) */
         .cat-number {
             color: #000;
             text-decoration: none;
@@ -100,7 +99,7 @@
             line-height: 1; 
             opacity: 0;
             transform: translateY(8px);
-            transition: color 0.15s ease, opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: color 0.15s ease, opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .cat-number:hover {
@@ -108,20 +107,11 @@
             text-decoration: underline;
         }
 
-        /* 2. Open state (triggered by JavaScript class) */
-        .catalogue-container.open .cat-number {
+        /* Triggered by JS for the waterfall effect */
+        .cat-number.show {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* 3. Pure CSS staggering for the waterfall effect */
-        .cat-number:nth-child(1) { transition-delay: 0.00s; }
-        .cat-number:nth-child(2) { transition-delay: 0.05s; }
-        .cat-number:nth-child(3) { transition-delay: 0.10s; }
-        .cat-number:nth-child(4) { transition-delay: 0.15s; }
-        .cat-number:nth-child(5) { transition-delay: 0.20s; }
-        .cat-number:nth-child(6) { transition-delay: 0.25s; }
-        .cat-number:nth-child(7) { transition-delay: 0.30s; }
 
         .title-display {
             white-space: pre-line;
@@ -141,7 +131,7 @@
             margin-top: 120px;
             transform-origin: top center;
             animation: swing 3.5s ease-in-out infinite alternate;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.4s ease-in-out;
         }
 
         @keyframes swing {
@@ -157,8 +147,7 @@
             .catalogue-container { flex-direction: column; gap: 20px; }
             .title-display { transform: translateY(0) !important; min-height: auto; } 
             .center-image { max-width: 80%; margin-top: 20px; }
-            /* Show instantly on mobile */
-            .cat-number { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+            .cat-number { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -180,4 +169,102 @@
                     <a href="004-paraply.html" class="cat-number" data-title="ALEXANDER SAND&#10;PARAPLY (2025)&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
                     <a href="005-kalla-vindar.html" class="cat-number" data-title="SKAMMEN&#10;KALLA VINDAR (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
                     <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
-                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL"
+                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
+                </div>
+                <div id="hover-title" class="title-display"></div>
+            </div>
+        </div>
+    </div>
+
+    <img src="start-img.png" alt="Dangling Illustration" id="landing-image" class="center-image">
+
+    <script>
+        const menuArea = document.getElementById('menu-area');
+        const catalogueContent = document.getElementById('catalogue-content');
+        const landingImage = document.getElementById('landing-image');
+        const hoverTitleDisplay = document.getElementById('hover-title');
+        const catNumbers = document.querySelectorAll('.cat-number');
+        
+        const mainLogo = document.getElementById('main-logo');
+        const defaultLogoSrc = mainLogo.getAttribute('src');
+        
+        let numberHoverTimeout;
+        let menuCloseTimeout;
+
+        menuArea.addEventListener('mouseenter', () => {
+            clearTimeout(menuCloseTimeout); 
+            
+            if (landingImage) {
+                landingImage.style.opacity = '0';
+            }
+            
+            catalogueContent.style.display = 'flex';
+            // Slight delay ensures the browser registers 'flex' before we start fading things in
+            setTimeout(() => {
+                catalogueContent.style.opacity = '1';
+                
+                // JavaScript staggered entry (foolproof)
+                catNumbers.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.classList.add('show');
+                    }, index * 50); 
+                });
+            }, 50);
+        });
+
+        menuArea.addEventListener('mouseleave', () => {
+            menuCloseTimeout = setTimeout(() => {
+                catalogueContent.style.opacity = '0';
+                hoverTitleDisplay.style.opacity = '0';
+                mainLogo.src = defaultLogoSrc;
+                
+                // Remove show class immediately on close
+                catNumbers.forEach(link => link.classList.remove('show'));
+
+                setTimeout(() => {
+                    if (catalogueContent.style.opacity === '0') {
+                        catalogueContent.style.display = 'none';
+                        hoverTitleDisplay.textContent = '';
+                        hoverTitleDisplay.style.transform = `translateY(0px)`;
+                    }
+                }, 300);
+
+                if (landingImage) {
+                    landingImage.style.opacity = '1';
+                }
+            }, 150); 
+        });
+
+        catNumbers.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                clearTimeout(numberHoverTimeout);
+                
+                hoverTitleDisplay.textContent = this.getAttribute('data-title');
+                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
+                hoverTitleDisplay.style.opacity = '1'; 
+                
+                const logoFile = this.getAttribute('data-logo');
+                if (logoFile) {
+                    mainLogo.src = logoFile;
+                }
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                numberHoverTimeout = setTimeout(() => {
+                    if (catalogueContent.style.opacity === '1') {
+                        hoverTitleDisplay.style.opacity = '0'; 
+                        mainLogo.src = defaultLogoSrc;
+                        
+                        setTimeout(() => {
+                            if (hoverTitleDisplay.style.opacity === '0') {
+                                hoverTitleDisplay.textContent = '';
+                                hoverTitleDisplay.style.transform = `translateY(0px)`;
+                            }
+                        }, 200);
+                    }
+                }, 600); 
+            });
+        });
+    </script>
+</body>
+</html>
