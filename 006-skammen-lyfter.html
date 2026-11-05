@@ -57,7 +57,6 @@
             font-family: 'Mono', monospace;
             font-size: 12px;
             color: #000000;
-            line-height: 1.6;
             text-align: left;
             display: flex;
             gap: 40px; 
@@ -72,7 +71,6 @@
             transition: opacity 0.4s ease-in-out;
             font-family: 'Mono', monospace;
             font-size: 12px;
-            line-height: 1.6;
             gap: 40px; 
             align-items: flex-start; 
             position: relative;
@@ -81,7 +79,7 @@
         .numbers-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
 
         .cat-number {
@@ -89,9 +87,11 @@
             text-decoration: none;
             cursor: pointer;
             line-height: 1;
+            transition: color 0.15s ease;
         }
 
         .cat-number:hover {
+            color: #0000FF; 
             text-decoration: underline;
         }
 
@@ -101,6 +101,7 @@
             text-transform: uppercase;
             min-height: 60px; 
             margin-top: 0;
+            line-height: 1.6;
             opacity: 0;
             transition: transform 0.15s ease-out, opacity 0.2s ease-in-out;
         }
@@ -111,6 +112,7 @@
             text-decoration: none; 
             font-family: 'Mono', monospace;
             font-size: 12px;
+            line-height: 1;
             cursor: pointer;
         }
 
@@ -387,7 +389,7 @@
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
-                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop}px)`;
+                hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
                 hoverTitleDisplay.style.opacity = '1';
                 
                 const logoFile = this.getAttribute('data-logo');
@@ -409,7 +411,7 @@
                             }
                         }, 200);
                     }
-                }, 300); 
+                }, 600); 
             });
         });
     </script>
