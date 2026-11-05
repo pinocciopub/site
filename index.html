@@ -112,7 +112,6 @@
             transform: translateY(0);
         }
 
-        /* 1. Updated title to function perfectly as an interactive link */
         .title-display {
             white-space: pre-line;
             min-width: 300px;
@@ -172,15 +171,14 @@
             
             <div id="catalogue-content" class="catalogue-container">
                 <div class="numbers-grid">
-                    <a href="001-apokryferna.html" class="cat-number" data-title="ALEXANDER SAND&#10;AP0KRYFERNA / NATTBOK (2016)&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
-                    <a href="002-ett-misslyckat-hjarta.html" class="cat-number" data-title="ALEXANDER SAND&#10;ETT MISSLYCKAT HJÄRTA (2019)&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
-                    <a href="003-sokaren.html" class="cat-number" data-title="ALEX SAND&#10;SÖKAREN (2024)&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
-                    <a href="004-paraply.html" class="cat-number" data-title="ALEXANDER SAND&#10;PARAPLY (2025)&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
+                    <a href="001-alexander-sand-apokryferna-nattbok.html" class="cat-number" data-title="ALEXANDER SAND&#10;AP0KRYFERNA / NATTBOK (2016)&#10;BOOK" data-logo="pp-logo-01-02.svg">001</a>
+                    <a href="002-alexander-sand-ett-misslyckat-hjarta.html" class="cat-number" data-title="ALEXANDER SAND&#10;ETT MISSLYCKAT HJÄRTA (2019)&#10;BOOK" data-logo="pp-logo-01-02.svg">002</a>
+                    <a href="003-alex-sand-sokaren.html" class="cat-number" data-title="ALEX SAND&#10;SÖKAREN (2024)&#10;SINGLE - DIGITAL" data-logo="pp-logo-03.svg">003</a>
+                    <a href="alex-sand-paraply.html" class="cat-number" data-title="ALEXANDER SAND&#10;PARAPLY (2025)&#10;SINGLE - DIGITAL" data-logo="pp-logo-04.svg">004</a>
                     <a href="005-kalla-vindar.html" class="cat-number" data-title="SKAMMEN&#10;KALLA VINDAR (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-05.svg">005</a>
                     <a href="006-skammen-lyfter.html" class="cat-number" data-title="SKAMMEN&#10;LYFTER (2026)&#10;SINGLE - DIGITAL" data-logo="pp-logo-06.svg">006</a>
-                    <a href="007-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
+                    <a href="007-moe-mitt-i-naturen.html" class="cat-number" data-title="MOE&#10;MITT I NATUREN (2026)&#10;EP - DIGITAL" data-logo="pp-logo-07.svg">007</a>
                 </div>
-                <!-- Changed to an <a> tag so it can act as a link -->
                 <a id="hover-title" class="title-display"></a>
             </div>
         </div>
@@ -222,14 +220,12 @@
 
         menuArea.addEventListener('mouseleave', () => {
             menuCloseTimeout = setTimeout(() => {
-                // Fading out the container fades everything uniformly
                 catalogueContent.style.opacity = '0';
                 mainLogo.src = defaultLogoSrc;
                 
                 setTimeout(() => {
                     if (catalogueContent.style.opacity === '0') {
                         catalogueContent.style.display = 'none';
-                        // Reset properties only once completely hidden
                         catNumbers.forEach(link => link.classList.remove('show'));
                         hoverTitleDisplay.style.opacity = '0';
                         hoverTitleDisplay.textContent = '';
@@ -244,7 +240,6 @@
             }, 150); 
         });
 
-        // Extracted timer logic so both numbers and titles use it
         function startNumberLeaveTimer() {
             numberHoverTimeout = setTimeout(() => {
                 if (catalogueContent.style.opacity === '1') {
@@ -267,7 +262,7 @@
                 clearTimeout(numberHoverTimeout);
                 
                 hoverTitleDisplay.textContent = this.getAttribute('data-title');
-                hoverTitleDisplay.href = this.href; // Dynamically sets the link
+                hoverTitleDisplay.href = this.href; 
                 hoverTitleDisplay.style.transform = `translateY(${this.offsetTop - 2}px)`; 
                 hoverTitleDisplay.style.opacity = '1'; 
                 
@@ -280,9 +275,8 @@
             link.addEventListener('mouseleave', startNumberLeaveTimer);
         });
 
-        // 2. Added Safe-Zone logic for the title itself
         hoverTitleDisplay.addEventListener('mouseenter', () => {
-            clearTimeout(numberHoverTimeout); // Keeps the 600ms window alive!
+            clearTimeout(numberHoverTimeout); 
         });
         
         hoverTitleDisplay.addEventListener('mouseleave', startNumberLeaveTimer);
